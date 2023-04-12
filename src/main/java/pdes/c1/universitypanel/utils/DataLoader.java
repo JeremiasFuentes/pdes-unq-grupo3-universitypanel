@@ -42,8 +42,8 @@ public class DataLoader implements CommandLineRunner {
         courseRepository.saveAll(Arrays.asList(course1, course2));
 
         // Carga de students
-        Student student1 = new Student("Juan Pérez", "463636364", "juanperez@example.com");
-        Student student2 = new Student("María González", "32131255", "mariagonzalez@example.com");
+        Student student1 = new Student(463636364, "Juan Pérez", "juanperez@example.com");
+        Student student2 = new Student(32131255, "María González", "mariagonzalez@example.com");
         studentRepository.saveAll(Arrays.asList(student1, student2));
 
         // Carga de professors

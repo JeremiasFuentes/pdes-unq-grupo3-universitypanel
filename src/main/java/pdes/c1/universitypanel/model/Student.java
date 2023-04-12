@@ -1,55 +1,54 @@
 package pdes.c1.universitypanel.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 @Entity(name = "students")
 public class Student {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
+	private Integer dni;
 	private String name;
-
-	private String dni;
-
 	private String mail;
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "student_course",
-			joinColumns = @JoinColumn(name = "student_id"),
-			inverseJoinColumns = @JoinColumn(name = "course_id"))
+	@JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
 	private List<Course> courses = new ArrayList<>();
 
-	public Student(String name, String dni, String mail) {
+	public Student(Integer dni, String name, String mail) {
+		this.dni = dni;
 		this.name = name;
-		this.dni= dni;
 		this.mail = mail;
 	}
 
-	public Student(){}
+	public Student() {
+	}
+
+	public Integer getDni() {
+		return this.dni;
+	}
+
+	public void setDni(Integer dni) {
+		this.dni = dni;
+	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getDni() {
-		return dni;
-	}
-
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
-
 	public String getMail() {
-		return mail;
+		return this.mail;
 	}
 
 	public void setMail(String mail) {
@@ -62,13 +61,5 @@ public class Student {
 
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 }

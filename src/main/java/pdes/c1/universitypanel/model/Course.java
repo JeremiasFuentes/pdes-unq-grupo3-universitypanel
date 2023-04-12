@@ -1,96 +1,100 @@
 package pdes.c1.universitypanel.model;
 
-import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+
 @Entity
 public class Course {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String name;
+	private Integer year;
+	private Integer semester;
 
-    private String name;
+	@ManyToMany
+	private List<Student> students = new ArrayList<>();
 
-    private Integer year;
+	@ManyToMany
+	private List<Professor> professors = new ArrayList<>();
 
-    private Integer semester;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "subject_id")
+	private Subject subject;
 
-    @ManyToMany
-    private List<Student> students = new ArrayList<>();
+	public Course(String name, int year, int semester, Subject subject) {
+		this.name = name;
+		this.year = year;
+		this.semester = semester;
+		this.subject = subject;
+	}
 
-    @ManyToMany
-    private List<Professor> professors = new ArrayList<>();
+	public Course() {
+	}
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="subject_id")
-    private Subject subject;
+	public String getName() {
+		return name;
+	}
 
-    public Course(String name, int year, int semester, Subject subject) {
-        this.name = name;
-        this.year = year;
-        this.semester = semester;
-        this.subject = subject;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public  Course(){}
+	public Long getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public Integer getYear() {
+		return year;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setYear(Integer year) {
+		this.year = year;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Integer getSemester() {
+		return semester;
+	}
 
-    public Integer getYear() {
-        return year;
-    }
+	public void setSemester(Integer semester) {
+		this.semester = semester;
+	}
 
-    public void setYear(Integer year) {
-        this.year = year;
-    }
+	public List<Student> getStudents() {
+		return students;
+	}
 
-    public Integer getSemester() {
-        return semester;
-    }
+	public void setStudents(List<Student> students) {
+		this.students = students;
+	}
 
-    public void setSemester(Integer semester) {
-        this.semester = semester;
-    }
+	public List<Professor> getProfessors() {
+		return professors;
+	}
 
-    public List<Student> getStudents() {
-        return students;
-    }
+	public void setProfessors(List<Professor> professor) {
+		this.professors = professor;
+	}
 
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
+	public Subject getSubject() {
+		return subject;
+	}
 
-    public List<Professor> getProfessors() {
-        return professors;
-    }
-
-    public void setProfessors(List<Professor> professor) {
-        this.professors = professor;
-    }
-
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
-
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
 
 }

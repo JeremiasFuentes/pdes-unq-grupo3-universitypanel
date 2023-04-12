@@ -22,25 +22,26 @@ public class StudentService {
 		return (List<Student>) studentRepository.findAll();
 	}
 
-	public Student getStudentById(Long studentId) {
-		return studentRepository.findById(studentId).orElseThrow(() -> new ResourceNotFoundException("Student", "id", studentId));
+	public Student getStudentById(Integer studentDni) {
+		return studentRepository.findById(studentDni).orElseThrow(() -> new ResourceNotFoundException("Student", "dni", studentDni));
 	}
 
 	public Student createStudent(Student student) {
 		return studentRepository.save(student);
 	}
 
-	public Student updateStudent(Long studentId, Student studentDetails) {
-		Student student = studentRepository.findById(studentId).orElseThrow(() -> new ResourceNotFoundException("Student", "id", studentId));
+	public Student updateStudent(Integer studentDni, Student studentDetails) {
+		Student student = studentRepository.findById(studentDni).orElseThrow(() -> new ResourceNotFoundException("Student", "dni", studentDni));
 		student.setName(studentDetails.getName());
 		student.setDni(studentDetails.getDni());
 		student.setMail(studentDetails.getMail());
 		student.setCourses(studentDetails.getCourses());
+		
 		return studentRepository.save(student);
 	}
 
-	public void deleteStudent(Long studentId) {
-		Student student = studentRepository.findById(studentId).orElseThrow(() -> new ResourceNotFoundException("Student", "id", studentId));
+	public void deleteStudent(Integer studentDni) {
+		Student student = studentRepository.findById(studentDni).orElseThrow(() -> new ResourceNotFoundException("Student", "dni", studentDni));
 		studentRepository.delete(student);
 	}
 }

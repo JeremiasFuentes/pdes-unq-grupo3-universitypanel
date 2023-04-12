@@ -1,0 +1,22 @@
+<div class="my-5 mx-auto container-sm card text-center">
+  <div class="card-body">
+    <h5 class="card-title">Cursos</h5>
+    <p class="card-text">Informaci&oacute;n de los cursos actuales.</p>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">A&ntilde;o</th>
+          <th scope="col">Cuatrimestre</th>
+          <th scope="col">Materia</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of courses">
+          <td [innerHTML]="course.year"></td>
+          <td [innerHTML]="course.semester"></td>
+          <td [innerHTML]="course.name"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

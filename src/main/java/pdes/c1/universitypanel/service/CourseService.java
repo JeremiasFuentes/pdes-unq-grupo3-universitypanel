@@ -1,7 +1,10 @@
 package pdes.c1.universitypanel.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import pdes.c1.universitypanel.exceptions.ResourceNotFoundException;
 import pdes.c1.universitypanel.model.Course;
 import pdes.c1.universitypanel.model.Professor;
@@ -12,81 +15,76 @@ import pdes.c1.universitypanel.repositories.ProfessorRepository;
 import pdes.c1.universitypanel.repositories.StudentRepository;
 import pdes.c1.universitypanel.repositories.SubjectRepository;
 
-import java.util.List;
-
 @Service
 public class CourseService {
+	private final CourseRepository courseRepository;
+	private final StudentRepository studentRepository;
+	private final ProfessorRepository professorRepository;
+	private final SubjectRepository subjectRepository;
 
-    private final CourseRepository courseRepository;
-    private final StudentRepository studentRepository;
-    private final ProfessorRepository professorRepository;
+	@Autowired
+	public CourseService(CourseRepository courseRepository, StudentRepository studentRepository,
+			ProfessorRepository professorRepository, SubjectRepository subjectRepository) {
+		this.courseRepository = courseRepository;
+		this.studentRepository = studentRepository;
+		this.professorRepository = professorRepository;
+		this.subjectRepository = subjectRepository;
+	}
 
-    private final SubjectRepository subjectRepository;
+	public Course getCourseById(Long id) {
+		return this.courseRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Course", "id", id));
+	}
 
-    @Autowired
-    public CourseService(CourseRepository courseRepository,
-                         StudentRepository studentRepository,
-                         ProfessorRepository professorRepository,
-                         SubjectRepository subjectRepository) {
-        this.courseRepository = courseRepository;
-        this.studentRepository = studentRepository;
-        this.professorRepository = professorRepository;
-        this.subjectRepository = subjectRepository;
-    }
+	public Course createCourse(Course course) {
+		Subject subject = subjectRepository.findById(course.getSubject().getId())
+				.orElseThrow(() -> new ResourceNotFoundException("Subject", "id", course.getSubject().getId()));
 
-    public Course getCourseById(Long id) {
-        return courseRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Course", "id", id));
-    }
+		course.setSubject(subject);
+		Course savedCourse = courseRepository.save(course);
 
-    public Course createCourse(Course course) {
-        Subject subject = subjectRepository.findById(course.getSubject().getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Subject", "id", course.getSubject().getId()));
+		subject.getCourses().add(savedCourse);
+		subjectRepository.save(subject);
 
-        course.setSubject(subject);
-        Course savedCourse = courseRepository.save(course);
+		return savedCourse;
+	}
 
-        subject.getCourses().add(savedCourse);
-        subjectRepository.save(subject);
+	public Course updateCourse(Long id, Course course) {
+		Course existingCourse = courseRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Course", "id", id));
 
-        return savedCourse;
-    }
+		existingCourse.setYear(course.getYear());
+		existingCourse.setSemester(course.getSemester());
+		existingCourse.setSubject(course.getSubject());
+		existingCourse.setStudents(course.getStudents());
+		existingCourse.setProfessors(course.getProfessors());
+		existingCourse.setName(course.getName());
 
-    public Course updateCourse(Long id, Course course) {
-        Course existingCourse = courseRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Course", "id", id));
+		return this.courseRepository.save(existingCourse);
+	}
 
-        existingCourse.setYear(course.getYear());
-        existingCourse.setSemester(course.getSemester());
-        existingCourse.setSubject(course.getSubject());
-        existingCourse.setStudents(course.getStudents());
-        existingCourse.setProfessors(course.getProfessors());
-        existingCourse.setName(course.getName());
+	public void deleteCourse(Long id) {
+		this.courseRepository.deleteById(id);
+	}
 
-        return courseRepository.save(existingCourse);
-    }
+	public void addStudentToCourse(Long courseId, Student student) {
+		Course course = getCourseById(courseId);
+		Student existingStudent = studentRepository.findById(student.getDni())
+				.orElseThrow(() -> new ResourceNotFoundException("Student", "dni", student.getDni()));
+		course.getStudents().add(existingStudent);
 
-    public void deleteCourse(Long id) {
-        courseRepository.deleteById(id);
-    }
+		this.courseRepository.save(course);
+	}
 
-    public void addStudentToCourse(Long courseId, Student student) {
-        Course course = getCourseById(courseId);
-        Student existingStudent = studentRepository.findById(student.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Student", "id", student.getId()));
-        course.getStudents().add(existingStudent);
-        courseRepository.save(course);
-    }
+	public void addProfessorToCourse(Long courseId, Professor professor) {
+		Course course = getCourseById(courseId);
+		Professor existingProfessor = professorRepository.findById(professor.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("Professor", "id", professor.getId()));
+		course.getProfessors().add(existingProfessor);
 
-    public void addProfessorToCourse(Long courseId, Professor professor) {
-        Course course = getCourseById(courseId);
-        Professor existingProfessor = professorRepository.findById(professor.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Professor", "id", professor.getId()));
-        course.getProfessors().add(existingProfessor);
-        courseRepository.save(course);
-    }
+		this.courseRepository.save(course);
+	}
 
-    public List<Course> getAllCourses() {
-        return (List<Course>) courseRepository.findAll();
-    }
+	public List<Course> getAllCourses() {
+		return (List<Course>) this.courseRepository.findAll();
+	}
 }

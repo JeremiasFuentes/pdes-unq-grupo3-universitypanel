@@ -1,0 +1,22 @@
+<div class="my-5 mx-auto container-sm card text-center">
+  <div class="card-body">
+    <h5 class="card-title">Cursos</h5>
+    <p class="card-text">Informaci&oacute;n de los estudiantes del curso.</p>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">DNI</th>
+          <th scope="col">Mail</th>
+          <th scope="col">Nombre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students">
+          <td [innerHTML]="student.dni"></td>
+          <td [innerHTML]="student.mail"></td>
+          <td [innerHTML]="student.name"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

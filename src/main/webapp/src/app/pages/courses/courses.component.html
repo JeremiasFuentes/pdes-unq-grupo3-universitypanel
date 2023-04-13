@@ -1,22 +1,39 @@
-<div class="my-5 mx-auto container-sm card text-center">
-  <div class="card-body">
-    <h5 class="card-title">Cursos</h5>
-    <p class="card-text">Informaci&oacute;n de los cursos actuales.</p>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">A&ntilde;o</th>
-          <th scope="col">Cuatrimestre</th>
-          <th scope="col">Materia</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let course of courses">
-          <td [innerHTML]="course.year"></td>
-          <td [innerHTML]="course.semester"></td>
-          <td [innerHTML]="course.name"></td>
-        </tr>
-      </tbody>
-    </table>
+<div class="row">
+  <div class="col-12 mt-3">
+    <div class="container-sm text-end">
+      <button type="button" class="btn border-black color-black" title="Agregar nuevo curso">
+        A&ntilde;adir nuevo
+      </button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 mt-3">
+    <div class="mx-auto container-sm card text-center">
+      <div class="card-body">
+        <h5 class="card-title">Cursos</h5>
+        <p class="card-text">Informaci&oacute;n de los cursos actuales.</p>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">A&ntilde;o</th>
+              <th scope="col">Cuatrimestre</th>
+              <th scope="col">Materia</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let course of courses"
+              [routerLink]="['/estudiantes']"
+              [queryParams]="{ cursoId: course.id }"
+            >
+              <td [innerHTML]="course.year"></td>
+              <td [innerHTML]="course.semester"></td>
+              <td [innerHTML]="course.name"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

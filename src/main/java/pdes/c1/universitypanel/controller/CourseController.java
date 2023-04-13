@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import pdes.c1.universitypanel.model.Course;
@@ -34,6 +35,12 @@ public class CourseController {
 	@GetMapping("/")
 	public ResponseEntity<Map<String, Object>> getAllCourses() {
 		return ResponseEntity.ok().body(ResponseBody.create(courseService.getAllCourses()));
+	}
+
+	@CrossOrigin
+	@GetMapping("/students")
+	public ResponseEntity<Map<String, Object>> getAllStudents(@RequestParam(name = "id") Long id) {
+		return ResponseEntity.ok().body(ResponseBody.create(courseService.getCourseStudents(id)));
 	}
 
 	@GetMapping("/{id}")

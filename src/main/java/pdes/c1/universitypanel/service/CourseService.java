@@ -87,4 +87,8 @@ public class CourseService {
 	public List<Course> getAllCourses() {
 		return (List<Course>) this.courseRepository.findAll();
 	}
+
+	public List<Student> getCourseStudents(Long id) {
+		return this.studentRepository.findStudentsOfCourse(id);
+	}
 }

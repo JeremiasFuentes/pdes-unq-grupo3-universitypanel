@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.*;
 import pdes.c1.universitypanel.model.Course;
 import pdes.c1.universitypanel.model.Subject;
 import pdes.c1.universitypanel.service.SubjectService;
+import pdes.c1.universitypanel.utils.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/subjects")
@@ -18,6 +20,12 @@ public class SubjectController {
     public SubjectController(SubjectService subjectService) {
         this.subjectService = subjectService;
     }
+
+	@CrossOrigin
+	@GetMapping("/")
+	public ResponseEntity<Map<String, Object>> getAllSubjects() {
+		return ResponseEntity.ok().body(ResponseBody.create(subjectService.getAllSubjects()));
+	}
 
     @GetMapping("/{id}")
     public ResponseEntity<Subject> getSubjectById(@PathVariable Long id) {

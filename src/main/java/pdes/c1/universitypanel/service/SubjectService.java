@@ -5,21 +5,17 @@ import org.springframework.stereotype.Service;
 import pdes.c1.universitypanel.exceptions.ResourceNotFoundException;
 import pdes.c1.universitypanel.model.Course;
 import pdes.c1.universitypanel.model.Subject;
-import pdes.c1.universitypanel.repositories.CourseRepository;
 import pdes.c1.universitypanel.repositories.SubjectRepository;
 
 import java.util.List;
 
 @Service
 public class SubjectService {
-
     private final SubjectRepository subjectRepository;
-    private final CourseRepository courseRepository;
 
     @Autowired
-    public SubjectService(SubjectRepository subjectRepository, CourseRepository courseRepository) {
+    public SubjectService(SubjectRepository subjectRepository) {
         this.subjectRepository = subjectRepository;
-        this.courseRepository = courseRepository;
     }
 
     public Subject getSubjectById(Long id) {
@@ -48,4 +44,8 @@ public class SubjectService {
         Subject subject = getSubjectById(id);
         return subject.getCourses();
     }
+
+	public List<Subject> getAllSubjects() {
+		return (List<Subject>) subjectRepository.findAll();
+	}
 }

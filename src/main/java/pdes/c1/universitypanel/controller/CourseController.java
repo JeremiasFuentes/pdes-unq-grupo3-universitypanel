@@ -49,6 +49,7 @@ public class CourseController {
 		return ResponseEntity.ok(course);
 	}
 
+	@CrossOrigin
 	@PostMapping("/")
 	public ResponseEntity<Course> createCourse(@RequestBody Course course) {
 		Course savedCourse = courseService.createCourse(course);

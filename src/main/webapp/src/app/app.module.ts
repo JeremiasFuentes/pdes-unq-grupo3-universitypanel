@@ -9,6 +9,7 @@ import { CoursesComponent } from './pages/courses/courses.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { StudentsComponent } from './pages/students/students.component';
 import { CoursesFormComponent } from './pages/courses-form/courses-form.component';
+import { StudentsFormComponent } from './pages/students-form/students-form.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { CoursesFormComponent } from './pages/courses-form/courses-form.componen
     NavbarComponent,
     CoursesComponent,
     CoursesFormComponent,
-    StudentsComponent
+    StudentsComponent,
+    StudentsFormComponent
   ],
   imports: [
     AppRoutingModule,

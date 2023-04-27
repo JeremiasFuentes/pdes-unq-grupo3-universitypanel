@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+  app:
+    image: 'universitypanel:latest'
+    build:
+      context: .
+    container_name: app
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://db:3306/upanel
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+    ports:
+      - 8080:8080
+
+  db:
+    image: 'mariadb:latest'
+    container_name: db
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=upanel
+    volumes:
+      - ./init.sql:/src/main/java/pdes/c1/universitypanel/utils/init.sql
+
+  web:
+    image: 'universitypanel-web:latest'
+    build:
+      context: ./src/main/webapp
+      dockerfile: Dockerfile
+    container_name: web
+    ports:
+      - 8083:80
+    depends_on:
+      - app

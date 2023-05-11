@@ -11,6 +11,6 @@ import pdes.c1.universitypanel.model.Student;
 @Repository
 public interface StudentRepository extends CrudRepository<Student, Integer> {
 	
-	@Query(nativeQuery = true, value = "SELECT s.* FROM students s JOIN course_students ct ON s.dni = ct.students_dni WHERE ct.course_id = ?1")
-	List<Student> findStudentsOfCourse(Long courseId);
+	@Query(nativeQuery = true, value = "SELECT s.* FROM students s JOIN groups_students gs ON s.dni = gs.students_dni WHERE gs.groups_id = ?1")
+	List<Student> findStudentsOfGroup(Long groupId);
 }

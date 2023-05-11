@@ -10,6 +10,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { StudentsComponent } from './pages/students/students.component';
 import { CoursesFormComponent } from './pages/courses-form/courses-form.component';
 import { StudentsFormComponent } from './pages/students-form/students-form.component';
+import { RepositoryInfoComponent } from './pages/repository-info/repository-info.component';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { StudentsFormComponent } from './pages/students-form/students-form.compo
     CoursesComponent,
     CoursesFormComponent,
     StudentsComponent,
-    StudentsFormComponent
+    StudentsFormComponent,
+    RepositoryInfoComponent
   ],
   imports: [
     AppRoutingModule,

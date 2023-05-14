@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { HttpService } from "src/app/services/http.service/http.service";
 
@@ -9,7 +9,6 @@ import { HttpService } from "src/app/services/http.service/http.service";
 })
 export class StudentsFormComponent {
   studentForm: FormGroup;
-  groups: any[] = [];
 
   showErrors: boolean = false;
 
@@ -17,17 +16,9 @@ export class StudentsFormComponent {
     this.studentForm = formBuilder.group({
       dni: ["", Validators.required],
       name: ["", Validators.required],
-      mail: ["", Validators.required],
-      group: ["", Validators.required],
+      mail: ["", Validators.required]
     });
   }
-
-  // ngOnInit() {
-  //   this.httpService.get('/groups/')
-  //   .subscribe(response => {
-  //     this.groups = response.data;
-  //   });
-  // }
 
   saveStudent() {
     if (this.studentForm.invalid) {
@@ -38,8 +29,7 @@ export class StudentsFormComponent {
     const body = {
       dni: this.studentForm.controls["dni"].value,
       name: this.studentForm.controls["name"].value,
-      mail: this.studentForm.controls["mail"].value,
-      group: this.studentForm.controls["group"].value,
+      mail: this.studentForm.controls["mail"].value
     };
 
     this.httpService

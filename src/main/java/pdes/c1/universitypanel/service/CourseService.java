@@ -7,26 +7,23 @@ import org.springframework.stereotype.Service;
 
 import pdes.c1.universitypanel.exceptions.ResourceNotFoundException;
 import pdes.c1.universitypanel.model.Course;
+import pdes.c1.universitypanel.model.Group;
 import pdes.c1.universitypanel.model.Professor;
-import pdes.c1.universitypanel.model.Student;
 import pdes.c1.universitypanel.model.Subject;
 import pdes.c1.universitypanel.repositories.CourseRepository;
 import pdes.c1.universitypanel.repositories.ProfessorRepository;
-import pdes.c1.universitypanel.repositories.StudentRepository;
 import pdes.c1.universitypanel.repositories.SubjectRepository;
 
 @Service
 public class CourseService {
 	private final CourseRepository courseRepository;
-	private final StudentRepository studentRepository;
 	private final ProfessorRepository professorRepository;
 	private final SubjectRepository subjectRepository;
 
 	@Autowired
-	public CourseService(CourseRepository courseRepository, StudentRepository studentRepository,
-			ProfessorRepository professorRepository, SubjectRepository subjectRepository) {
+	public CourseService(CourseRepository courseRepository, ProfessorRepository professorRepository,
+			SubjectRepository subjectRepository) {
 		this.courseRepository = courseRepository;
-		this.studentRepository = studentRepository;
 		this.professorRepository = professorRepository;
 		this.subjectRepository = subjectRepository;
 	}
@@ -55,7 +52,7 @@ public class CourseService {
 		existingCourse.setYear(course.getYear());
 		existingCourse.setSemester(course.getSemester());
 		existingCourse.setSubject(course.getSubject());
-		existingCourse.setStudents(course.getStudents());
+		existingCourse.setGroups(course.getGroups());
 		existingCourse.setProfessors(course.getProfessors());
 		existingCourse.setName(course.getName());
 
@@ -64,15 +61,6 @@ public class CourseService {
 
 	public void deleteCourse(Long id) {
 		this.courseRepository.deleteById(id);
-	}
-
-	public void addStudentToCourse(Long courseId, Student student) {
-		Course course = getCourseById(courseId);
-		Student existingStudent = studentRepository.findById(student.getDni())
-				.orElseThrow(() -> new ResourceNotFoundException("Student", "dni", student.getDni()));
-		course.getStudents().add(existingStudent);
-
-		this.courseRepository.save(course);
 	}
 
 	public void addProfessorToCourse(Long courseId, Professor professor) {
@@ -84,11 +72,14 @@ public class CourseService {
 		this.courseRepository.save(course);
 	}
 
-	public List<Course> getAllCourses() {
-		return (List<Course>) this.courseRepository.findAll();
+	public void addGroupToCourse(Long courseId, Group group) {
+		Course course = this.getCourseById(courseId);
+		course.getGroups().add(group);
+		
+		this.courseRepository.save(course);
 	}
 
-	public List<Student> getCourseStudents(Long id) {
-		return this.studentRepository.findStudentsOfCourse(id);
+	public List<Course> getAllCourses() {
+		return (List<Course>) this.courseRepository.findAll();
 	}
 }

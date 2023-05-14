@@ -1,7 +1,22 @@
 <div class="row">
   <div class="col-12 mt-3">
     <div class="container-sm text-end">
-      <button type="button" class="btn border-black color-black" data-bs-target="#courseModal" data-bs-toggle="modal" title="Agregar nuevo curso">
+      <button
+        type="button"
+        class="btn border-black color-black me-1"
+        data-bs-target="#newStudentModal"
+        data-bs-toggle="modal"
+        title="A&ntilde;adir nuevo estudiante"
+      >
+        A&ntilde;adir nuevo estudiante
+      </button>
+      <button
+        type="button"
+        class="btn border-black color-black"
+        data-bs-target="#newCourseModal"
+        data-bs-toggle="modal"
+        title="A&ntilde;adir nuevo curso"
+      >
         A&ntilde;adir nuevo
       </button>
     </div>
@@ -25,7 +40,7 @@
           <tbody>
             <tr
               *ngFor="let course of courses"
-              [routerLink]="['/estudiantes']"
+              [routerLink]="['/grupos']"
               [queryParams]="{ cursoId: course.id }"
             >
               <td [innerHTML]="course.year"></td>
@@ -39,15 +54,40 @@
     </div>
   </div>
 </div>
-<div id="courseModal" class="modal fade" aria-hidden="true" tabindex="-1">
+<div id="newCourseModal" class="modal fade" aria-hidden="true" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalToggleLabel">Nuevo curso</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
         <app-courses-form></app-courses-form>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="newStudentModal" class="modal fade" aria-hidden="true" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel">
+          Nuevo estudiante
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <app-students-form></app-students-form>
       </div>
     </div>
   </div>

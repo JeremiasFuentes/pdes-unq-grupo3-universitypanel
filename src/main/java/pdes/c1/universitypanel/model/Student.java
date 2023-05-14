@@ -19,8 +19,8 @@ public class Student {
 	private String mail;
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
-	private List<Course> courses = new ArrayList<>();
+	@JoinTable(name = "student_group", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+	private List<Group> groups = new ArrayList<>();
 
 	public Student(Integer dni, String name, String mail) {
 		this.dni = dni;
@@ -55,11 +55,11 @@ public class Student {
 		this.mail = mail;
 	}
 
-	public List<Course> getCourses() {
-		return courses;
+	public List<Group> getGroups() {
+		return this.groups;
 	}
 
-	public void setCourses(List<Course> courses) {
-		this.courses = courses;
+	public void setGroups(List<Group> groups) {
+		this.groups = groups;
 	}
 }

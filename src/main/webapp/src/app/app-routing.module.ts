@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CoursesComponent } from './pages/courses/courses.component';
 import { StudentsComponent } from './pages/students/students.component';
 import { RepositoryInfoComponent } from './pages/repository-info/repository-info.component';
+import { GroupsComponent } from './pages/groups/groups.component';
 
 const routes: Routes = [
   {path: 'cursos', component: CoursesComponent},

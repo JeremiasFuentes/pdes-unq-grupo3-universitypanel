@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Course {
@@ -22,10 +23,10 @@ public class Course {
 	private Integer semester;
 
 	@ManyToMany
-	private List<Student> students = new ArrayList<>();
-
-	@ManyToMany
 	private List<Professor> professors = new ArrayList<>();
+
+	@OneToMany
+	private List<Group> groups = new ArrayList<>();
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "subject_id")
@@ -41,20 +42,20 @@ public class Course {
 	public Course() {
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Integer getYear() {
@@ -73,20 +74,20 @@ public class Course {
 		this.semester = semester;
 	}
 
-	public List<Student> getStudents() {
-		return students;
-	}
-
-	public void setStudents(List<Student> students) {
-		this.students = students;
-	}
-
 	public List<Professor> getProfessors() {
 		return professors;
 	}
 
-	public void setProfessors(List<Professor> professor) {
-		this.professors = professor;
+	public void setProfessors(List<Professor> professors) {
+		this.professors = professors;
+	}
+
+	public List<Group> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(List<Group> groups) {
+		this.groups = groups;
 	}
 
 	public Subject getSubject() {
@@ -96,5 +97,4 @@ public class Course {
 	public void setSubject(Subject subject) {
 		this.subject = subject;
 	}
-
 }

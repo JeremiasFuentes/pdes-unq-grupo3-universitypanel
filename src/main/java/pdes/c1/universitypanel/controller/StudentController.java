@@ -1,8 +1,11 @@
 package pdes.c1.universitypanel.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,15 +17,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pdes.c1.universitypanel.model.Student;
 import pdes.c1.universitypanel.service.StudentService;
+import pdes.c1.universitypanel.utils.ResponseBody;
 
 @RestController
 @RequestMapping("students")
 public class StudentController {
 	private StudentService studentService;
 
+	@Autowired
+	public StudentController(StudentService studentService) {
+		this.studentService = studentService;
+	}
+
+	@CrossOrigin
 	@GetMapping("/")
-	public List<Student> getAllStudents() {
-		return studentService.getAllStudents();
+	public ResponseEntity<Map<String, Object>> getAllStudents() {
+		return ResponseEntity.ok().body(ResponseBody.create(studentService.getAllStudents()));
 	}
 
 	@GetMapping("/{dni}")
@@ -31,6 +41,7 @@ public class StudentController {
 		return ResponseEntity.ok().body(student);
 	}
 
+	@CrossOrigin
 	@PostMapping("/")
 	public Student createStudent(@RequestBody Student student) {
 		return studentService.createStudent(student);

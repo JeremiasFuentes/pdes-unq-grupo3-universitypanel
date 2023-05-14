@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import pdes.c1.universitypanel.model.Course;
 import pdes.c1.universitypanel.model.Professor;
-import pdes.c1.universitypanel.model.Student;
 import pdes.c1.universitypanel.service.CourseService;
 import pdes.c1.universitypanel.utils.ResponseBody;
 
@@ -38,11 +36,6 @@ public class CourseController {
 	}
 
 	@CrossOrigin
-	@GetMapping("/students")
-	public ResponseEntity<Map<String, Object>> getAllStudents(@RequestParam(name = "id") Long id) {
-		return ResponseEntity.ok().body(ResponseBody.create(courseService.getCourseStudents(id)));
-	}
-
 	@GetMapping("/{id}")
 	public ResponseEntity<Course> getCourseById(@PathVariable Long id) {
 		Course course = courseService.getCourseById(id);
@@ -62,18 +55,14 @@ public class CourseController {
 		return ResponseEntity.ok(updatedCourse);
 	}
 
+	@CrossOrigin
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteCourse(@PathVariable Long id) {
 		courseService.deleteCourse(id);
 		return ResponseEntity.noContent().build();
 	}
 
-	@PostMapping("/{id}/students")
-	public ResponseEntity<Void> addStudentToCourse(@PathVariable Long id, @RequestBody Student student) {
-		courseService.addStudentToCourse(id, student);
-		return ResponseEntity.noContent().build();
-	}
-
+	@CrossOrigin
 	@PostMapping("/{id}/professors")
 	public ResponseEntity<Void> addProfessorToCourse(@PathVariable Long id, @RequestBody Professor professor) {
 		courseService.addProfessorToCourse(id, professor);

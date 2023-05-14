@@ -1,0 +1,48 @@
+<div *ngIf="repoInfo" class="container mt-4">
+  <h1>{{ repoInfo.name }}</h1>
+
+  <div class="mt-4">
+    <h3>Commits:</h3>
+    <ul class="list-group">
+      <li *ngFor="let commit of commits" class="list-group-item">
+        {{ commit.commit.message }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="mt-4">
+    <h3>Issues:</h3>
+    <ul class="list-group">
+      <li *ngFor="let issue of issues" class="list-group-item">
+        {{ issue.title }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="mt-4">
+    <h3>Branches:</h3>
+    <ul class="list-group">
+      <li *ngFor="let branch of branches" class="list-group-item">
+        {{ branch.name }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="mt-4">
+    <h3>Tags:</h3>
+    <ul class="list-group">
+      <li *ngFor="let tag of tags" class="list-group-item">
+        {{ tag.name }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="mt-4">
+    <h3>Pull Requests:</h3>
+    <ul class="list-group">
+      <li *ngFor="let pull of pulls" class="list-group-item">
+        {{ pull.title }}
+      </li>
+    </ul>
+  </div>
+</div>

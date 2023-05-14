@@ -31,17 +31,17 @@ public class StudentService {
 	}
 
 	public Student updateStudent(Integer studentDni, Student studentDetails) {
-		Student student = studentRepository.findById(studentDni).orElseThrow(() -> new ResourceNotFoundException("Student", "dni", studentDni));
+		Student student = this.getStudentById(studentDni);
 		student.setName(studentDetails.getName());
 		student.setDni(studentDetails.getDni());
 		student.setMail(studentDetails.getMail());
-		student.setCourses(studentDetails.getCourses());
+		student.setGroups(studentDetails.getGroups());
 		
 		return studentRepository.save(student);
 	}
 
 	public void deleteStudent(Integer studentDni) {
-		Student student = studentRepository.findById(studentDni).orElseThrow(() -> new ResourceNotFoundException("Student", "dni", studentDni));
+		Student student = this.getStudentById(studentDni);
 		studentRepository.delete(student);
 	}
 }

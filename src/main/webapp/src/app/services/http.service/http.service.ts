@@ -21,4 +21,8 @@ export class HttpService {
   post(endpoint: string, body: any): Observable<any> {
     return this.http.post(this.baseURL + endpoint, body)
   }
+
+  delete(endpoint: string): Observable<any> {
+    return this.http.delete(this.baseURL + endpoint)
+  }
 }

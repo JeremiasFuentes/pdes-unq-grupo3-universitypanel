@@ -11,6 +11,10 @@ import { CoursesFormComponent } from './pages/courses-form/courses-form.componen
 import { StudentsFormComponent } from './pages/students-form/students-form.component';
 import { RepositoryInfoComponent } from './pages/repository-info/repository-info.component';
 import { GroupsComponent } from './pages/groups/groups.component';
+import { StudentsComponent } from './pages/students/students.component';
+import { RouterModule } from '@angular/router';
+import { RepositoriesComponent } from './pages/repositories/repositories.component';
+import { RepositoriesFormComponent } from './pages/repositories-form/repositories-form.component';
 
 @NgModule({
   declarations: [
@@ -20,15 +24,18 @@ import { GroupsComponent } from './pages/groups/groups.component';
     CoursesFormComponent,
     StudentsComponent,
     StudentsFormComponent,
-    RepositoryInfoComponent
-    GroupsComponent
+    RepositoryInfoComponent,
+    GroupsComponent,
+    RepositoriesComponent,
+    RepositoriesFormComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

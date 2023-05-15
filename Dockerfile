@@ -1,4 +1,10 @@
-FROM eclipse-temurin:18
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} universitypanel-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java","-jar","/universitypanel-0.0.1-SNAPSHOT.jar"]
+FROM eclipse-temurin:17
+WORKDIR /app
+COPY . .
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+COPY src src
+
+RUN ./mvnw install -DskipTests
+ENTRYPOINT ["java","-jar","target/universitypanel-0.0.1-SNAPSHOT.jar"]

@@ -1,0 +1,25 @@
+<form [formGroup]="repositoryForm" (submit)="saveRepository()">
+    <div class="row mb-3">
+        <div class="col-12">
+            <label for="name" class="form-label">Nombre</label>
+            <input id="name" type="text" formControlName="name" class="form-control">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-12">
+            <label for="owner" class="form-label">Owner</label>
+            <input id="owner" type="text" formControlName="owner" class="form-control">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-12">
+            <label for="token" class="form-label">Token</label>
+            <input id="token" type="text" formControlName="token" class="form-control">
+        </div>
+    </div>
+    <div class="row mt-4 mb-2">
+        <div class="col-12 text-end">
+            <button type="submit" class="btn btn-primary">{{ repoId ? 'Modificar' : 'Guardar' }}</button>
+        </div>
+    </div>
+</form>

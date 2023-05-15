@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpService } from '../../services/http.service/http.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-groups',
@@ -57,6 +57,10 @@ export class GroupsComponent {
         );
   }
 
+  setGroupIdSelected(groupId: number){
+    this.selectedGroup = groupId;
+  }
+
   addStudent() {
     if(this.selectedStudent == null)
       return;
@@ -65,5 +69,34 @@ export class GroupsComponent {
         .subscribe(
           (_: any) => this.loadGroupStudents(this.selectedGroup)
         );
+  }
+
+  goToRepositories(grupoId: number){
+        // Configurar los parámetros de navegación
+        const navigationExtras: NavigationExtras = {
+          queryParams: { grupoId: grupoId.toString(), cursoId: this.courseId?.toString()}
+        };
+    
+        // Redireccionar a la página de repositorios del grupo
+        this.router.navigate(['/repositorios'], navigationExtras);
+  }
+
+  deleteGroup(){
+    this.httpService.delete('/groups/' + this.selectedGroup + '/delete').subscribe(
+    (response: any) => this.loadGroups()
+    )
+  }
+
+  
+  closeModal() {
+    const modal = document.getElementById('confirmDeleteModal');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+      const modalBackdrop = document.getElementsByClassName('modal-backdrop')[0];
+      if (modalBackdrop) {
+        modalBackdrop.parentNode?.removeChild(modalBackdrop);
+      }
+    }
   }
 }

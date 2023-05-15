@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pdes.c1.universitypanel.exceptions.ResourceNotFoundException;
+import pdes.c1.universitypanel.model.GitRepository;
 import pdes.c1.universitypanel.model.Group;
 import pdes.c1.universitypanel.model.Student;
 import pdes.c1.universitypanel.repositories.GroupRepository;
@@ -53,5 +54,21 @@ public class GroupService {
 		this.groupRepository.save(group);
 		
 		this.courseService.addGroupToCourse(courseId, group);
+	}
+
+
+	public void save(Group group) {
+		groupRepository.save(group);
+	}
+
+	public List<GitRepository> getGroupRepositories(Long groupId) {
+		Group group = this.getGroupById(groupId);
+		return  group.getRepositories();
+
+	}
+
+	public void deleteGroup(Long groupId) {
+		Group group = this.getGroupById(groupId);
+		this.groupRepository.delete(group);
 	}
 }

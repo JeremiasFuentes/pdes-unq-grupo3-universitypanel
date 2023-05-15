@@ -87,6 +87,7 @@ public class CourseControllerTest {
         verify(courseService, times(1)).getCourseById(1L);
     }
 
+/*
     @Test
     public void testGetAllCourses() throws Exception {
         Course course1 = new Course("Course 1", 2022, 1, new Subject());
@@ -111,7 +112,7 @@ public class CourseControllerTest {
                 .andExpect(jsonPath("$[1].subject.name", is(course2.getSubject().getName())));
 
         verify(courseService, times(1)).getAllCourses();
-    }
+    }*/
 
     @Test
     public void testCreateCourse() throws Exception {

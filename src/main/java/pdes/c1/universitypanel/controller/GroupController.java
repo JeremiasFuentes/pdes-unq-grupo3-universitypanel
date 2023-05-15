@@ -5,14 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import pdes.c1.universitypanel.model.dto.GroupDTO;
 import pdes.c1.universitypanel.service.GroupService;
@@ -41,6 +34,12 @@ public class GroupController {
 	}
 
 	@CrossOrigin
+	@GetMapping("/getAllRepositories")
+	public ResponseEntity<Map<String, Object>> getAllRepositories(@RequestParam(name = "groupId") Long groupId) {
+		return ResponseEntity.ok().body(ResponseBody.create(groupService.getGroupRepositories(groupId)));
+	}
+
+	@CrossOrigin
 	@PostMapping("/create")
 	public ResponseEntity<Void> create(@RequestParam(name = "courseId") Long courseId) {
 		this.groupService.addGroup(courseId);
@@ -53,4 +52,13 @@ public class GroupController {
 		this.groupService.addStudentToGroup(id, studentDni);
 		return ResponseEntity.noContent().build();
 	}
+
+	@CrossOrigin
+	@DeleteMapping("/{idGroup}/delete")
+	public ResponseEntity<?> deleteGroup(@PathVariable(value = "idGroup") Long groupId) {
+		groupService.deleteGroup(groupId);
+		return ResponseEntity.ok().build();
+	}
+
+
 }

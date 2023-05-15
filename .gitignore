@@ -35,3 +35,14 @@ build/
 /src/main/webapp/node_modules
 /src/main/webapp/.angular
 /.metadata
+/src/main/java/.gitignore
+/src/main/webapp/dist/universitypanel/3rdpartylicenses.txt
+/src/main/webapp/dist/universitypanel/assets/bootstrap.min.css
+/src/main/webapp/dist/universitypanel/assets/bootstrap.min.js
+/src/main/webapp/dist/universitypanel/favicon.ico
+/src/main/webapp/dist/universitypanel/index.html
+/src/main/webapp/dist/universitypanel/main.d9836ff75bdbed06.js
+/src/main/webapp/dist/universitypanel/polyfills.b773536228d727c7.js
+/src/main/webapp/dist/universitypanel/runtime.f334f5f316d50953.js
+/src/main/webapp/dist/universitypanel/scripts.53c03c8da55620f6.js
+/src/main/webapp/dist/universitypanel/styles.9b1383c42ee6f1bc.css

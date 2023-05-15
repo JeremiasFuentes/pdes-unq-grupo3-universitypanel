@@ -26,13 +26,28 @@
               <th scope="col">N&uacute;mero</th>
               <th scope="col">Cantidad estudiantes</th>
               <th scope="col">Cantidad repositorios</th>
+              <th scope="col">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let group of groups" data-bs-target="#studentsModal" data-bs-toggle="modal" (click)="loadGroupStudents(group.id)">
+            <tr *ngFor="let group of groups">
               <td [innerHTML]="group.id"></td>
               <td [innerHTML]="group.studentsAmount"></td>
               <td [innerHTML]="group.repositoriesAmount"></td>
+              <td>
+                <button class="btn btn-secondary"   (click)="goToRepositories(group.id)">
+                  Ver Repositorios
+                </button>
+                <button class="btn btn-secondary" data-bs-target="#studentsModal" data-bs-toggle="modal" (click)="loadGroupStudents(group.id)">
+                  Ver Estudiantes
+                </button>
+                <button class="btn btn-danger"
+                (click)="setGroupIdSelected(group.id)"
+                data-bs-target="#confirmDeleteModal"
+                data-bs-toggle="modal">
+                  Eliminar
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -83,4 +98,29 @@
       </div>
     </div>
   </div>
+</div>
+
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h4>
+        <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <p>¿Estás seguro de que quieres eliminar este grupo?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="deleteGroup(); closeModal()">Eliminar</button>
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+    </div>
+  </div>
+</div>
 </div>

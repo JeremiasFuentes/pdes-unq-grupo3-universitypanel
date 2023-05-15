@@ -6,13 +6,20 @@
         </div>
     </div>
     <div class="row mb-3">
-        <div class="col-4">
+        <div class="col-3">
             <label for="dni" class="form-label">DNI</label>
             <input id="dni" type="text" formControlName="dni" class="form-control">
         </div>
-        <div class="col-8">
+        <div class="col-3">
             <label for="mail" class="form-label">Mail</label>
             <input id="mail" type="text" formControlName="mail" class="form-control">
+        </div>
+        <div class="col-6">
+            <label for="group" class="form-label">Grupo</label>
+            <select id="group" formControlName="group" class="form-select">
+                <option value="">Seleccione un grupo</option>
+                <option *ngFor="let group of groups" [ngValue]="group.id">{{group.name}}</option>
+            </select>
         </div>
     </div>
     <div class="row mt-4 mb-2">

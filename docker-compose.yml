@@ -1,6 +1,17 @@
 version: '2'
 
 services:
+
+
+  db:
+    image: 'mariadb:latest'
+    container_name: db
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=upanel
+    volumes:
+      - ./init.sql:/src/main/java/pdes/c1/universitypanel/utils/init.sql
+
   app:
     image: 'universitypanel:latest'
     build:
@@ -12,19 +23,10 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mariadb://db:3306/upanel
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
       - SPRING_JPA_SHOW_SQL=true
     ports:
       - 8080:8080
-
-  db:
-    image: 'mariadb:latest'
-    container_name: db
-    environment:
-      - MARIADB_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=upanel
-    volumes:
-      - ./init.sql:/src/main/java/pdes/c1/universitypanel/utils/init.sql
 
   web:
     image: 'universitypanel-web:latest'

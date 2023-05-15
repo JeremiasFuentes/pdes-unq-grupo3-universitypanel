@@ -3,12 +3,7 @@ package pdes.c1.universitypanel.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 
 @Entity(name = "groups")
 public class Group {
@@ -18,11 +13,11 @@ public class Group {
 	
 	@ManyToMany
 	private List<Student> students = new ArrayList<>();
-	
-	@ElementCollection
-	private List<String> repositories = new ArrayList<>();
 
-	public Group(Long id, List<Student> students, List<String> repositories) {
+	@OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<GitRepository> repositories = new ArrayList<>();
+
+	public Group(Long id, List<Student> students, List<GitRepository> repositories) {
 		super();
 		this.id = id;
 		this.students = students;
@@ -48,15 +43,21 @@ public class Group {
 		this.students = students;
 	}
 
-	public List<String> getRepositories() {
+	public List<GitRepository> getRepositories() {
 		return repositories;
 	}
 
-	public void setRepositories(List<String> repositories) {
+	public void setRepositories(List<GitRepository> repositories) {
 		this.repositories = repositories;
 	}
 
-	public void addRepositorie(String repositorie) {
+	public void addRepositorie(GitRepository repositorie) {
 		this.repositories.add(repositorie);
+		repositorie.setGroup(this);
+	}
+
+	public void removeRepositorie(GitRepository repositorie) {
+		this.repositories.remove(repositorie);
+		repositorie.setGroup(null);
 	}
 }

@@ -10,9 +10,22 @@ export class CoursesComponent {
   courses: any[] = [];
 
   constructor(private httpService: HttpService) {
+    this.loadCourses();
+  }
+
+  loadCourses() {
     this.httpService.get('/courses/')
     .subscribe(
       (response: any) => this.courses = response.data
     );
+  }
+
+  deleteCourse(event: any, courseId: any) {
+    this.httpService.delete('/courses/' + courseId)
+    .subscribe(
+      (_: any) => this.loadCourses()
+    );
+
+    event.stopPropagation();
   }
 }

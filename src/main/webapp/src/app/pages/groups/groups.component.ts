@@ -82,8 +82,9 @@ export class GroupsComponent {
   }
 
   deleteGroup(){
-    this.httpService.delete('/groups/' + this.selectedGroup + '/delete').subscribe(
-    (response: any) => this.loadGroups()
+    this.httpService.delete('/groups/' + this.selectedGroup + '/delete')
+    .subscribe(
+      (response: any) => this.loadGroups()
     )
   }
 

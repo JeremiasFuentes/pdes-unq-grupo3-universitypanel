@@ -35,6 +35,7 @@
               <th scope="col">Cuatrimestre</th>
               <th scope="col">Nombre</th>
               <th scope="col">Materia</th>
+              <th scope="col">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -47,6 +48,15 @@
               <td [innerHTML]="course.semester"></td>
               <td [innerHTML]="course.name"></td>
               <td [innerHTML]="course.subject.name"></td>
+              <td>
+                <button type="button" class="btn" (click)="deleteCourse($event, course.id)">
+                  <img
+                    src="../assets/icons/trash.svg"
+                    alt="Eliminar curso"
+                    title="Eliminar curso"
+                  />
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>

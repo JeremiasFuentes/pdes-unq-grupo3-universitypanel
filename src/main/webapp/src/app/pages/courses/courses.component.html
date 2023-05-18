@@ -1,0 +1,104 @@
+<div class="row">
+  <div class="col-12 mt-3">
+    <div class="container-sm text-end">
+      <button
+        type="button"
+        class="btn border-black color-black me-1"
+        data-bs-target="#newStudentModal"
+        data-bs-toggle="modal"
+        title="A&ntilde;adir nuevo estudiante"
+      >
+        A&ntilde;adir nuevo estudiante
+      </button>
+      <button
+        type="button"
+        class="btn border-black color-black"
+        data-bs-target="#newCourseModal"
+        data-bs-toggle="modal"
+        title="A&ntilde;adir nuevo curso"
+      >
+        A&ntilde;adir nuevo
+      </button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 mt-3">
+    <div class="mx-auto container-sm card text-center">
+      <div class="card-body">
+        <h5 class="card-title">Cursos</h5>
+        <p class="card-text">Informaci&oacute;n de los cursos actuales.</p>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">A&ntilde;o</th>
+              <th scope="col">Cuatrimestre</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Materia</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let course of courses"
+              [routerLink]="['/grupos']"
+              [queryParams]="{ cursoId: course.id }"
+            >
+              <td [innerHTML]="course.year"></td>
+              <td [innerHTML]="course.semester"></td>
+              <td [innerHTML]="course.name"></td>
+              <td [innerHTML]="course.subject.name"></td>
+              <td>
+                <button type="button" class="btn" (click)="deleteCourse($event, course.id)">
+                  <img
+                    src="../assets/icons/trash.svg"
+                    alt="Eliminar curso"
+                    title="Eliminar curso"
+                  />
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="newCourseModal" class="modal fade" aria-hidden="true" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel">Nuevo curso</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <app-courses-form></app-courses-form>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="newStudentModal" class="modal fade" aria-hidden="true" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel">
+          Nuevo estudiante
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <app-students-form></app-students-form>
+      </div>
+    </div>
+  </div>
+</div>

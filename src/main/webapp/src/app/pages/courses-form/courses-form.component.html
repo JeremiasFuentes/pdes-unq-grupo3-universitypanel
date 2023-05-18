@@ -1,0 +1,30 @@
+<form [formGroup]="courseForm" (submit)="saveCourse()">
+    <div class="row mb-3">
+        <div class="col-12">
+            <label for="name" class="form-label">Nombre</label>
+            <input id="name" type="text" formControlName="name" class="form-control">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-3">
+            <label for="year" class="form-label">A&ntilde;o</label>
+            <input id="year" type="text" formControlName="year" class="form-control">
+        </div>
+        <div class="col-3">
+            <label for="semester" class="form-label">Cuatrimestre</label>
+            <input id="semester" type="text" formControlName="semester" class="form-control">
+        </div>
+        <div class="col-6">
+            <label for="subject" class="form-label">Materia</label>
+            <select id="subject" formControlName="subject" class="form-select">
+                <option value="">Seleccione una materia</option>
+                <option *ngFor="let subject of subjects" [ngValue]="subject.id">{{subject.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row mt-4 mb-2">
+        <div class="col-12 text-end">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+    </div>
+</form>

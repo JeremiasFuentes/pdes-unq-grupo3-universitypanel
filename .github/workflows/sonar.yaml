@@ -42,4 +42,4 @@ jobs:
       - name: SonarCloud Scan for Angular
         run: |
           cd ./src/main/webapp
-          sonar-scanner -Dsonar.projectKey=JeremiasFuentes_pdes-unq-grupo3-universitypanel -Dsonar.organization=jeremiasfuentes -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONARCLOUD_TOKEN
+          sonar-scanner -Dsonar.projectKey=JeremiasFuentes_pdes-unq-grupo3-universitypanel -Dsonar.organization=jeremiasfuentes -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN

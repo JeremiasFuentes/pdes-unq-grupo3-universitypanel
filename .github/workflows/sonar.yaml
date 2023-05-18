@@ -25,7 +25,7 @@ jobs:
       - name: Build and Analyze Maven Project
         run: |
           mvn clean install -DskipTests=true
-          mvn sonar:sonar -Dsonar.projectKey=JeremiasFuentes_pdes-unq-grupo3-universitypanel -Dsonar.organization=jeremiasfuentes -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONARCLOUD_TOKEN
+          mvn sonar:sonar -Dsonar.projectKey=JeremiasFuentes_pdes-unq-grupo3-universitypanel -Dsonar.organization=jeremiasfuentes -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
 
       - name: Build and Analyze Angular Project
         uses: actions/setup-node@v2

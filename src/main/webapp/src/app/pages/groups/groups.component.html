@@ -17,9 +17,7 @@
     <div class="mx-auto container-sm card text-center">
       <div class="card-body">
         <h5 class="card-title">Grupos</h5>
-        <p class="card-text">
-          Informaci&oacute;n de los grupos del curso.
-        </p>
+        <p class="card-text">Informaci&oacute;n de los grupos del curso.</p>
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -35,16 +33,26 @@
               <td [innerHTML]="group.studentsAmount"></td>
               <td [innerHTML]="group.repositoriesAmount"></td>
               <td>
-                <button class="btn btn-secondary"   (click)="goToRepositories(group.id)">
+                <button
+                  class="btn btn-secondary"
+                  (click)="goToRepositories(group.id)"
+                >
                   Ver Repositorios
                 </button>
-                <button class="btn btn-secondary" data-bs-target="#studentsModal" data-bs-toggle="modal" (click)="loadGroupStudents(group.id)">
+                <button
+                  class="btn btn-secondary"
+                  data-bs-target="#studentsModal"
+                  data-bs-toggle="modal"
+                  (click)="loadGroupStudents(group.id)"
+                >
                   Ver Estudiantes
                 </button>
-                <button class="btn btn-danger"
-                (click)="setGroupIdSelected(group.id)"
-                data-bs-target="#confirmDeleteModal"
-                data-bs-toggle="modal">
+                <button
+                  class="btn btn-danger"
+                  (click)="setGroupIdSelected(group.id)"
+                  data-bs-target="#confirmDeleteModal"
+                  data-bs-toggle="modal"
+                >
                   Eliminar
                 </button>
               </td>
@@ -60,7 +68,12 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalToggleLabel">Estudiantes</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
         <table class="table table-bordered">
@@ -80,8 +93,10 @@
         <div class="row">
           <div class="col-7">
             <select [(ngModel)]="selectedStudent" class="form-select">
-              <option [value]=null>Seleccione un estudiante</option>
-              <option *ngFor="let student of students" [value]="student.dni">{{student.dni + ' - ' + student.name}}</option>
+              <option [value]="null">Seleccione un estudiante</option>
+              <option *ngFor="let student of students" [value]="student.dni">
+                {{ student.dni + " - " + student.name }}
+              </option>
             </select>
           </div>
           <div class="col-3">
@@ -100,27 +115,44 @@
   </div>
 </div>
 
-
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
-aria-hidden="true">
-<div class="modal-dialog" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h4 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h4>
+<div
+  class="modal fade"
+  id="confirmDeleteModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="confirmDeleteModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="confirmDeleteModalLabel">
+          Confirmar Eliminación
+        </h4>
         <button
-        type="button"
-        class="btn-close"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-      ></button>
-    </div>
-    <div class="modal-body">
-      <p>¿Estás seguro de que quieres eliminar este grupo?</p>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-danger" (click)="deleteGroup(); closeModal()">Eliminar</button>
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+          #confirmDeleteModalCloseButton
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás seguro de que quieres eliminar este grupo?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteGroup()">
+          Eliminar
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          Cancelar
+        </button>
+      </div>
     </div>
   </div>
-</div>
 </div>

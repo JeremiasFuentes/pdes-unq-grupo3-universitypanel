@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { HttpService } from '../../services/http.service/http.service';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 
@@ -8,6 +8,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./groups.component.scss']
 })
 export class GroupsComponent {
+  @ViewChild('confirmDeleteModalCloseButton') confirmDeleteModalCloseButton: any;
   courseId: number | undefined;
 
   students: any[] = [];
@@ -84,20 +85,10 @@ export class GroupsComponent {
   deleteGroup(){
     this.httpService.delete('/groups/' + this.selectedGroup + '/delete')
     .subscribe(
-      (response: any) => this.loadGroups()
-    )
-  }
-
-  
-  closeModal() {
-    const modal = document.getElementById('confirmDeleteModal');
-    if (modal) {
-      modal.classList.remove('show');
-      modal.style.display = 'none';
-      const modalBackdrop = document.getElementsByClassName('modal-backdrop')[0];
-      if (modalBackdrop) {
-        modalBackdrop.parentNode?.removeChild(modalBackdrop);
+      (_: any) => {
+        this.loadGroups();
+        this.confirmDeleteModalCloseButton.nativeElement.click();
       }
-    }
+    )
   }
 }

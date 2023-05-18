@@ -30,17 +30,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      - name: Build and Analyze Angular Project
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14.20'
-      - name: Install Dependencies
-        run: |
-          cd ./src/main/webapp
-          npm install
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#      - name: Build and Analyze Angular Project
+#        uses: actions/setup-node@v2
+#        with:
+#          node-version: '14.20'
+#      - name: Install Dependencies
+#        run: |
+#          cd ./src/main/webapp
+#          npm install
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 #
 #      - name: Build Angular Project
 #        run: |

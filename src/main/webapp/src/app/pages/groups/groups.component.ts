@@ -53,9 +53,9 @@ export class GroupsComponent {
 
     this.groupStudents = [];
     this.httpService.get('/groups/getAllStudents?groupId=' + groupId)
-        .subscribe(
-          (response: any) => this.groupStudents = response.data
-        );
+    .subscribe(
+      (response: any) => this.groupStudents = response.data
+    );
   }
 
   setGroupIdSelected(groupId: number){
@@ -67,22 +67,25 @@ export class GroupsComponent {
       return;
 
     this.httpService.put('/groups/' + this.selectedGroup + '/addStudent?studentDni=' + this.selectedStudent, null)
-        .subscribe(
-          (_: any) => this.loadGroupStudents(this.selectedGroup)
-        );
+    .subscribe(
+      (_: any) => {
+        this.loadGroupStudents(this.selectedGroup);
+        this.loadGroups();
+      }
+    );
   }
 
   goToRepositories(grupoId: number){
-        // Configurar los parámetros de navegación
-        const navigationExtras: NavigationExtras = {
-          queryParams: { grupoId: grupoId.toString(), cursoId: this.courseId?.toString()}
-        };
-    
-        // Redireccionar a la página de repositorios del grupo
-        this.router.navigate(['/repositorios'], navigationExtras);
+    // Configurar los parámetros de navegación
+    const navigationExtras: NavigationExtras = {
+      queryParams: { grupoId: grupoId.toString(), cursoId: this.courseId?.toString()}
+    };
+
+    // Redireccionar a la página de repositorios del grupo
+    this.router.navigate(['/repositorios'], navigationExtras);
   }
 
-  deleteGroup(){
+  deleteGroup() {
     this.httpService.delete('/groups/' + this.selectedGroup + '/delete')
     .subscribe(
       (_: any) => {

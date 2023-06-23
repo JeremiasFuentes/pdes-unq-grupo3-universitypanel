@@ -8,23 +8,48 @@ $black: #0D0D0D;
 body {
     background-color: $white;
     
-    & * {
+    & *:not(i) {
         color: $black;
     }
 }
 
 nav {
-    background-color: $red_2;
+    background-color: $white;
 }
 
 #navbarNav .nav-link {
-    color: $white;
+    color: $black;
+}
+
+.navbar .navbar-brand {
+    color: $red;
+    font-weight: 600;
+}
+
+.background-red {
+    background-color: $red;
+}
+
+.background-transparent {
+    background-color: transparent;
 }
 
 .border-black {
     border-color: $black;
 }
 
+.border-red {
+    border-color: $red;
+}
+
 .color-black {
     color: $black;
+}
+
+.color-red {
+    color: $red;
+}
+
+.color-white {
+    color: $white;
 }

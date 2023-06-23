@@ -3,11 +3,9 @@ package pdes.c1.universitypanel.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import pdes.c1.universitypanel.model.GitRepository;
 import pdes.c1.universitypanel.model.Group;
-import pdes.c1.universitypanel.model.Student;
 import pdes.c1.universitypanel.service.RepositoryService;
 
 @RestController

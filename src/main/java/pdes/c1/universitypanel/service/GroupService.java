@@ -41,6 +41,9 @@ public class GroupService {
 	}
 
 	public void addStudentToGroup(Long groupId, Integer studentDni) {
+		if(this.studentRepository.findStudentByGroupIdAndUserId(groupId, studentDni).isPresent())
+			throw new RuntimeException("El estudiante ya se encuentra en el grupo");
+			
 		Group group = this.getGroupById(groupId);
 		Student existingStudent = this.studentService.getStudentById(studentDni);
 

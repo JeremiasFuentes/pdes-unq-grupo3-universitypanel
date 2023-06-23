@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Octokit } from "@octokit/core";
+//import { Octokit } from "@octokit/core";
 import { from, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GithubService {
-  private octokit: Octokit;
+  private octokit: any;
 
   constructor() {
     const token = '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';
-    this.octokit = new Octokit({
-      auth: token
-    });
+    // this.octokit = new Octokit({
+    //   auth: token
+    // });
   }
 
   getRepoInfo(username: string, repoName: string, token: string): Observable<any> {

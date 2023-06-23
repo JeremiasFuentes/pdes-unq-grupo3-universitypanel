@@ -1,24 +1,26 @@
 <div class="row">
   <div class="col-12 mt-3">
-    <div class="container-sm text-end">
-      <button
-        type="button"
-        class="btn border-black color-black"
-        (click)="createGroup()"
-        title="Agregar nuevo grupo"
-      >
-        A&ntilde;adir nuevo
-      </button>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-12 mt-3">
-    <div class="mx-auto container-sm card text-center">
+    <div class="mx-auto container-sm card text-center background-transparent">
       <div class="card-body">
-        <h5 class="card-title">Grupos</h5>
-        <p class="card-text">Informaci&oacute;n de los grupos del curso.</p>
-        <table class="table table-bordered">
+        <div class="row">
+          <div class="col-8">
+            <h5 class="card-title text-start">Grupos</h5>
+            <p class="card-text text-start">
+              Informaci&oacute;n de los grupos del curso.
+            </p>
+          </div>
+          <div class="col-4 text-end">
+            <button
+              type="button"
+              class="btn border-black color-black border-0"
+              (click)="createGroup()"
+              title="Agregar nuevo grupo"
+            >
+              <i class="bi bi-plus-lg"></i> A&ntilde;adir nuevo
+            </button>
+          </div>
+        </div>
+        <table class="table table-hover">
           <thead>
             <tr>
               <th scope="col">N&uacute;mero</th>
@@ -34,26 +36,29 @@
               <td [innerHTML]="group.repositoriesAmount"></td>
               <td>
                 <button
-                  class="btn btn-secondary"
+                  type="button"
+                  class="btn"
                   (click)="goToRepositories(group.id)"
                 >
-                  Ver Repositorios
+                  <i class="bi bi-github"></i>
                 </button>
                 <button
-                  class="btn btn-secondary"
+                  type="button"
+                  class="btn"
                   data-bs-target="#studentsModal"
                   data-bs-toggle="modal"
                   (click)="loadGroupStudents(group.id)"
                 >
-                  Ver Estudiantes
+                  <i class="bi bi-person-fill-add"></i>
                 </button>
                 <button
-                  class="btn btn-danger"
+                  type="button"
+                  class="btn"
                   (click)="setGroupIdSelected(group.id)"
                   data-bs-target="#confirmDeleteModal"
                   data-bs-toggle="modal"
                 >
-                  Eliminar
+                  <i class="bi bi-trash-fill color-red"></i>
                 </button>
               </td>
             </tr>
@@ -91,7 +96,7 @@
           </tbody>
         </table>
         <div class="row">
-          <div class="col-7">
+          <div class="col-9">
             <select [(ngModel)]="selectedStudent" class="form-select">
               <option [value]="null">Seleccione un estudiante</option>
               <option *ngFor="let student of students" [value]="student.dni">
@@ -127,7 +132,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="confirmDeleteModalLabel">
-          Confirmar Eliminación
+          Confirmar eliminaci&oacute;n
         </h4>
         <button
           #confirmDeleteModalCloseButton
@@ -138,7 +143,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        <p>¿Estás seguro de que quieres eliminar este grupo?</p>
+        <p>¿Est&aacute;s seguro de que quieres eliminar este grupo?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" (click)="deleteGroup()">

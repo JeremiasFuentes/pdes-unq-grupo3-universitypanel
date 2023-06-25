@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Octokit } from "@octokit/core";
+//import { Octokit } from "@octokit/core";
 import { from, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GithubService {
-  private octokit: Octokit;
+  private octokit: any;
 
   constructor() {
     const token = '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';

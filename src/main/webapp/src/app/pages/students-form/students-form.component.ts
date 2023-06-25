@@ -18,16 +18,8 @@ export class StudentsFormComponent {
       dni: ["", Validators.required],
       name: ["", Validators.required],
       mail: ["", Validators.required],
-      group: ["", Validators.required],
     });
   }
-
-  // ngOnInit() {
-  //   this.httpService.get('/groups/')
-  //   .subscribe(response => {
-  //     this.groups = response.data;
-  //   });
-  // }
 
   saveStudent() {
     if (this.studentForm.invalid) {
@@ -39,7 +31,6 @@ export class StudentsFormComponent {
       dni: this.studentForm.controls["dni"].value,
       name: this.studentForm.controls["name"].value,
       mail: this.studentForm.controls["mail"].value,
-      group: this.studentForm.controls["group"].value,
     };
 
     this.httpService

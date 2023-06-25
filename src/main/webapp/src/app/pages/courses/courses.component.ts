@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { HttpService } from '../../services/http.service/http.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-courses',
@@ -7,10 +8,21 @@ import { HttpService } from '../../services/http.service/http.service';
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent {
+  @ViewChild('confirmDeleteModalCloseButton') confirmDeleteModalCloseButton: any;
+
   courses: any[] = [];
+
+  selectedCourse: any;
 
   constructor(private httpService: HttpService) {
     this.loadCourses();
+  }
+
+  ngOnInit() {
+    $('table').on('click', 'button', function(event) {
+      console.log("lleguie");
+      event.stopPropagation();
+    });
   }
 
   loadCourses() {
@@ -20,12 +32,17 @@ export class CoursesComponent {
     );
   }
 
-  deleteCourse(event: any, courseId: any) {
-    this.httpService.delete('/courses/' + courseId)
-    .subscribe(
-      (_: any) => this.loadCourses()
-    );
+  setCourseIdSelected(courseId: number){
+    this.selectedCourse = courseId;
+  }
 
-    event.stopPropagation();
+  deleteCourse() {
+    this.httpService.delete('/courses/' + this.selectedCourse)
+    .subscribe(
+      (_: any) => {
+        this.loadCourses();
+        this.confirmDeleteModalCloseButton.nativeElement.click();
+      }
+    );
   }
 }

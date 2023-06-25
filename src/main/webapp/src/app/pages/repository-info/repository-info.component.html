@@ -1,48 +1,90 @@
 <div *ngIf="repoInfo" class="container mt-4">
-  <h1>{{ repoInfo.name }}</h1>
+  <h1 class="display-4">{{ repoInfo.name }}</h1>
 
-  <div class="mt-4">
-    <h3>Commits:</h3>
-    <ul class="list-group">
-      <li *ngFor="let commit of commits" class="list-group-item">
-        {{ commit.commit.message }}
-      </li>
-    </ul>
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <h3>Commits:</h3>
+      <table class="table table-striped">
+        <tbody>
+          <ng-container *ngIf="commits.length > 0; else noCommits">
+            <tr *ngFor="let commit of commits">
+              <td>{{ commit.commit.message }}</td>
+            </tr>
+          </ng-container>
+          <ng-template #noCommits>
+            <tr>
+              <td>No hay commits</td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-6">
+      <h3>Branches:</h3>
+      <table class="table table-striped">
+        <tbody>
+          <ng-container *ngIf="branches.length > 0; else noBranches">
+            <tr *ngFor="let branch of branches">
+              <td>{{ branch.name }}</td>
+            </tr>
+          </ng-container>
+          <ng-template #noBranches>
+            <tr>
+              <td>No hay branches</td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+
+      <h3>Tags:</h3>
+      <table class="table table-striped">
+        <tbody>
+          <ng-container *ngIf="tags.length > 0; else noTags">
+            <tr *ngFor="let tag of tags">
+              <td>{{ tag.name }}</td>
+            </tr>
+          </ng-container>
+          <ng-template #noTags>
+            <tr>
+              <td>No hay tags</td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+
+      <h3>Pull Requests:</h3>
+      <table class="table table-striped">
+        <tbody>
+          <ng-container *ngIf="pulls.length > 0; else noPulls">
+            <tr *ngFor="let pull of pulls">
+              <td>{{ pull.title }}</td>
+            </tr>
+          </ng-container>
+          <ng-template #noPulls>
+            <tr>
+              <td>No hay pull requests</td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+
+        <h3>Issues:</h3>
+      <table class="table table-striped">
+        <tbody>
+          <ng-container *ngIf="issues.length > 0; else noIssues">
+            <tr *ngFor="let issue of issues">
+              <td>{{ issue.title }}</td>
+            </tr>
+          </ng-container>
+          <ng-template #noIssues>
+            <tr>
+              <td>No hay issues</td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  <div class="mt-4">
-    <h3>Issues:</h3>
-    <ul class="list-group">
-      <li *ngFor="let issue of issues" class="list-group-item">
-        {{ issue.title }}
-      </li>
-    </ul>
-  </div>
-
-  <div class="mt-4">
-    <h3>Branches:</h3>
-    <ul class="list-group">
-      <li *ngFor="let branch of branches" class="list-group-item">
-        {{ branch.name }}
-      </li>
-    </ul>
-  </div>
-
-  <div class="mt-4">
-    <h3>Tags:</h3>
-    <ul class="list-group">
-      <li *ngFor="let tag of tags" class="list-group-item">
-        {{ tag.name }}
-      </li>
-    </ul>
-  </div>
-
-  <div class="mt-4">
-    <h3>Pull Requests:</h3>
-    <ul class="list-group">
-      <li *ngFor="let pull of pulls" class="list-group-item">
-        {{ pull.title }}
-      </li>
-    </ul>
-  </div>
 </div>

@@ -54,6 +54,15 @@
                 <button
                   type="button"
                   class="btn"
+                  data-bs-target="#NotesModal"
+                  data-bs-toggle="modal"
+                  (click)="loadGroupNotes(group.id)"
+                >
+                  <i class="bi bi-chat-square-text-fill"></i>
+                </button>
+                <button
+                  type="button"
+                  class="btn"
                   (click)="setGroupIdSelected(group.id)"
                   data-bs-target="#confirmDeleteModal"
                   data-bs-toggle="modal"
@@ -110,6 +119,56 @@
               class="btn border-black color-black"
               (click)="addStudent()"
               title="Agregar estudiante existente"
+            >
+              A&ntilde;adir
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="NotesModal" class="modal fade" aria-hidden="true" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel">Notas de desempeño</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+          <tbody>
+            <tr *ngFor="let note of groupNotes; let i = index">
+              <td class="align-middle">{{ note }}</td>
+              <td class="text-end" style="width: 10%">
+                <button
+                  type="button"
+                  class="btn"
+                  (click)="deleteNote(i)"
+                  title="Eliminar nota"
+                >
+                  <i class="bi bi-trash-fill color-red"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-9">
+            <input [(ngModel)]="selectedNote" class="form-control">
+          </div>
+          <div class="col-3">
+            <button
+              type="button"
+              class="btn border-black color-black"
+              (click)="addNote()"
+              title="Agregar nota"
             >
               A&ntilde;adir
             </button>

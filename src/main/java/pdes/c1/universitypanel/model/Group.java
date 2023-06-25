@@ -10,12 +10,18 @@ public class Group {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	private int numberOfGroup = 0;
 	
 	@ManyToMany
 	private List<Student> students = new ArrayList<>();
 
 	@OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<GitRepository> repositories = new ArrayList<>();
+
+	@Column
+	@ElementCollection
+	private List<String> notes = new ArrayList<>();
 
 	public Group(Long id, List<Student> students, List<GitRepository> repositories) {
 		super();
@@ -59,5 +65,21 @@ public class Group {
 	public void removeRepositorie(GitRepository repositorie) {
 		this.repositories.remove(repositorie);
 		repositorie.setGroup(null);
+	}
+
+	public List<String> getNotes() {
+		return notes;
+	}
+
+	public void setNotes(List<String> notes) {
+		this.notes = notes;
+	}
+
+	public int getNumberOfGroup() {
+		return numberOfGroup;
+	}
+
+	public void setNumberOfGroup(int numberOfGroup) {
+		this.numberOfGroup = numberOfGroup;
 	}
 }

@@ -14,9 +14,11 @@ export class GroupsComponent {
   students: any[] = [];
   groups: any[] = [];
   groupStudents: any[] = [];
+  groupNotes: any[] = [];
 
   selectedGroup: any;
   selectedStudent: any = null;
+  selectedNote: string = '';
 
   constructor(private activatedRoute: ActivatedRoute, private httpService: HttpService, private router: Router) {
     this.activatedRoute.queryParams.subscribe(params => {
@@ -58,6 +60,16 @@ export class GroupsComponent {
     );
   }
 
+  loadGroupNotes(groupId: number) {
+    this.selectedGroup = groupId;
+
+    this.groupNotes = [];
+    this.httpService.get('/groups/' + groupId + '/notes')
+    .subscribe(
+      (response: any) => this.groupNotes = response
+    );
+  }
+
   setGroupIdSelected(groupId: number){
     this.selectedGroup = groupId;
   }
@@ -71,6 +83,18 @@ export class GroupsComponent {
       (_: any) => {
         this.loadGroupStudents(this.selectedGroup);
         this.loadGroups();
+      }
+    );
+  }
+
+  addNote() {
+    if(this.selectedNote == null)
+      return;
+
+    this.httpService.post('/groups/' + this.selectedGroup + '/notes', this.selectedNote)
+    .subscribe(
+      (response: any) => {
+        this.loadGroupNotes(this.selectedGroup);
       }
     );
   }
@@ -91,6 +115,15 @@ export class GroupsComponent {
       (_: any) => {
         this.loadGroups();
         this.confirmDeleteModalCloseButton.nativeElement.click();
+      }
+    )
+  }
+
+  deleteNote(indexNote: number) {
+    this.httpService.delete('/groups/' + this.selectedGroup + '/notes/' + indexNote)
+    .subscribe(
+      (_: any) => {
+        this.loadGroupNotes(this.selectedGroup);
       }
     )
   }

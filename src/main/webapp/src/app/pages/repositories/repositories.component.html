@@ -1,26 +1,26 @@
 <div class="row">
   <div class="col-12 mt-3">
-    <div class="container-sm text-end">
-      <button
-        type="button"
-        class="btn border-black color-black"
-        data-bs-target="#newRepositoryModal"
-        data-bs-toggle="modal"
-        title="Agregar nuevo Repositorio"
-      >
-        A&ntilde;adir nuevo Repositorio
-      </button>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-12 mt-3">
-    <div class="mx-auto container-sm card text-center">
+    <div class="mx-auto container-sm card text-center background-transparent">
       <div class="card-body">
-        <h5 class="card-title">Repositorios</h5>
-        <p class="card-text">
-          Informaci&oacute;n de los repositorios del grupo.
-        </p>
+        <div class="row">
+          <div class="col-8">
+            <h5 class="card-title text-start">Repositorios</h5>
+            <p class="card-text text-start">
+              Informaci&oacute;n de los repositorios del grupo.
+            </p>
+          </div>
+          <div class="col-4 text-end">
+            <button
+              type="button"
+              class="btn border-black color-black border-0"
+              data-bs-target="#newRepositoryModal"
+              data-bs-toggle="modal"
+              title="Agregar nuevo Repositorio"
+            >
+              <i class="bi bi-plus-lg"></i> A&ntilde;adir nuevo
+            </button>
+          </div>
+        </div>
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -37,7 +37,8 @@
               <td [innerHTML]="repo.token"></td>
               <td>
                 <button
-                  class="btn btn-success text-dark"
+                  type="button"
+                  class="btn"
                   [routerLink]="['/repositorio']"
                   [queryParams]="{
                     user: repo.owner,
@@ -45,23 +46,25 @@
                     id: repo.id
                   }"
                 >
-                  Ver
+                  <i class="bi bi-eye-fill"></i>
                 </button>
                 <button
-                  class="btn btn-danger text-dark"
+                  type="button"
+                  class="btn"
                   (click)="setRepoIdSelected(repo.id)"
                   data-bs-target="#confirmDeleteModal"
                   data-bs-toggle="modal"
                 >
-                  Eliminar
+                  <i class="bi bi-trash-fill color-red"></i>
                 </button>
                 <button
-                  class="btn btn-warning text-dark"
+                  type="button"
+                  class="btn"
                   (click)="setRepoIdSelected(repo.id)"
                   data-bs-target="#modifyRepoModal"
                   data-bs-toggle="modal"
                 >
-                  Modificar
+                  <i class="bi bi-pencil-fill"></i>
                 </button>
               </td>
             </tr>

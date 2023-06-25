@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +15,8 @@ import { StudentsComponent } from './pages/students/students.component';
 import { RouterModule } from '@angular/router';
 import { RepositoriesComponent } from './pages/repositories/repositories.component';
 import { RepositoriesFormComponent } from './pages/repositories-form/repositories-form.component';
+import { LoginComponent } from './pages/login/login/login.component';
+import { AuthInterceptor } from './helpers/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { RepositoriesFormComponent } from './pages/repositories-form/repositorie
     RepositoryInfoComponent,
     GroupsComponent,
     RepositoriesComponent,
-    RepositoriesFormComponent
+    RepositoriesFormComponent,
+    LoginComponent
   ],
   imports: [
     AppRoutingModule,
@@ -37,7 +40,9 @@ import { RepositoriesFormComponent } from './pages/repositories-form/repositorie
     ReactiveFormsModule,
     RouterModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS , useClass:AuthInterceptor, multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

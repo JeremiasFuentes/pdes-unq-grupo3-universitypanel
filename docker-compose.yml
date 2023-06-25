@@ -12,11 +12,11 @@ services:
     volumes:
       - ./init.sql:/src/main/java/pdes/c1/universitypanel/utils/init.sql
 
-  app:
+  localhost:
     image: 'universitypanel:latest'
     build:
       context: .
-    container_name: app
+    container_name: localhost
     depends_on:
       - db
     environment:
@@ -37,4 +37,4 @@ services:
     ports:
       - 8083:80
     depends_on:
-      - app
+      - localhost

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,5 +24,27 @@ export class HttpService {
 
   delete(endpoint: string): Observable<any> {
     return this.http.delete(this.baseURL + endpoint)
+  }
+
+  login(creds: any){
+    console.log(creds);
+    return this.http.post(this.baseURL + "/login", creds, {
+      observe: 'response'
+    }).pipe(map((response: HttpResponse<any>) => {
+      const body = response.body;
+      const headers = response.headers;
+      
+      const bearerToken = headers.get('Authorization')!;
+      console.log(bearerToken);
+      const token = bearerToken?.replace('Bearer ', "");
+      localStorage.setItem('token', token);
+      
+
+      return body;
+    }))
+  }
+
+  getToken(){
+    return localStorage.getItem('token');
   }
 }

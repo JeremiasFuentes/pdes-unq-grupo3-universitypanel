@@ -2,17 +2,10 @@ package pdes.c1.universitypanel.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-import pdes.c1.universitypanel.model.Course;
-import pdes.c1.universitypanel.model.Group;
-import pdes.c1.universitypanel.model.Professor;
-import pdes.c1.universitypanel.model.Student;
-import pdes.c1.universitypanel.model.Subject;
-import pdes.c1.universitypanel.repositories.CourseRepository;
-import pdes.c1.universitypanel.repositories.GroupRepository;
-import pdes.c1.universitypanel.repositories.ProfessorRepository;
-import pdes.c1.universitypanel.repositories.StudentRepository;
-import pdes.c1.universitypanel.repositories.SubjectRepository;
+import pdes.c1.universitypanel.model.*;
+import pdes.c1.universitypanel.repositories.*;
 
 import java.util.Arrays;
 
@@ -33,6 +26,9 @@ public class DataLoader implements CommandLineRunner {
 
     @Autowired
     private ProfessorRepository professorRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -69,6 +65,9 @@ public class DataLoader implements CommandLineRunner {
         
         course1.getGroups().add(group1);
         course2.getGroups().add(group2);
+
+        User user = new User("admin@admin.com" , new BCryptPasswordEncoder().encode("admin"));
+        userRepository.save(user);
         
         courseRepository.saveAll(Arrays.asList(course1, course2));
         groupRepository.saveAll(Arrays.asList(group1, group2));

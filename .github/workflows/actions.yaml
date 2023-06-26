@@ -1,4 +1,5 @@
-name: Actions
+name: CI
+
 on:
   push:
     branches:
@@ -16,11 +17,6 @@ jobs:
           MYSQL_DATABASE: upanel
         ports:
           - 3306:3306
-        volumes:
-          - universitypanel_init_sql:/src/main/java/pdes/c1/universitypanel/utils/init.sql
-
-    volumes:
-      universitypanel_init_sql:
 
     steps:
       - name: Checkout repository

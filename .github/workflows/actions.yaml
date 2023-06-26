@@ -1,0 +1,50 @@
+name: GitHub Actions
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: mariadb:latest
+        env:
+          MARIADB_ROOT_PASSWORD: root
+          MYSQL_DATABASE: upanel
+        volumes:
+          - ./init.sql:/src/main/java/pdes/c1/universitypanel/utils/init.sql
+
+    steps:
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Build backend
+        run: mvn clean install -DskipTests
+
+      - name: Build frontend
+        run: |
+          cd src/main/webapp
+          npm install -g @angular/cli@15.1.6
+          npm run build
+          cd ../..
+
+      - name: Build and run containers
+        run: |
+          docker-compose up --build -d
+
+      - name: Run tests
+        run: mvn test

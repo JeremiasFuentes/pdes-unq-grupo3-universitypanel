@@ -3,21 +3,30 @@
         <div class="col-12">
             <label for="name" class="form-label">Nombre</label>
             <input id="name" type="text" formControlName="name" class="form-control">
+            <div *ngIf="showErrors && studentForm.controls['name'].status == 'INVALID'" class="invalid-feedback d-block">
+              Ingrese un nombre v&aacute;lido.
+            </div>
         </div>
     </div>
     <div class="row mb-3">
         <div class="col-5">
             <label for="dni" class="form-label">DNI</label>
             <input id="dni" type="text" formControlName="dni" class="form-control">
+            <div *ngIf="showErrors && studentForm.controls['dni'].status == 'INVALID'" class="invalid-feedback d-block">
+                Ingrese un dni v&aacute;lido.
+            </div>
         </div>
         <div class="col-7">
             <label for="mail" class="form-label">Mail</label>
             <input id="mail" type="text" formControlName="mail" class="form-control">
+            <div *ngIf="showErrors && studentForm.controls['mail'].status == 'INVALID'" class="invalid-feedback d-block">
+              Ingrese un mail v&aacute;lido.
+            </div>
         </div>
     </div>
     <div class="row mt-4 mb-2">
         <div class="col-12 text-end">
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn btn-primary" [attr.data-bs-dismiss]="studentForm.status != 'INVALID' ? 'modal' : undefined">Guardar</button>
         </div>
     </div>
 </form>

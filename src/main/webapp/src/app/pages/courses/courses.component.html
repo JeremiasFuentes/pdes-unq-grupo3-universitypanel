@@ -60,6 +60,7 @@
                 <button
                   type="button"
                   class="btn"
+                  (click)="deleteCourseModal($event, course.id)"
                   data-bs-target="#confirmDeleteModal"
                   data-bs-toggle="modal"
                 >
@@ -127,7 +128,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        <p>¿Est&aacute;s seguro de que quieres eliminar este grupo?</p>
+        <p>¿Est&aacute;s seguro de que quieres eliminar este curso?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" (click)="deleteCourse()">

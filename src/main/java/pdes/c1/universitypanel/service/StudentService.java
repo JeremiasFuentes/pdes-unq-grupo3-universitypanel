@@ -27,6 +27,9 @@ public class StudentService {
 	}
 
 	public Student createStudent(Student student) {
+		if (studentRepository.findById(student.getDni()).isPresent())
+			throw new RuntimeException("El dni ingresado ya se encuentra registrado");
+			
 		return studentRepository.save(student);
 	}
 

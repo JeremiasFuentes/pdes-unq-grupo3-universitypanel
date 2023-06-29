@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { HttpService } from '../../services/http.service/http.service';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-groups',
@@ -20,7 +21,7 @@ export class GroupsComponent {
   selectedStudent: any = null;
   selectedNote: string = '';
 
-  constructor(private activatedRoute: ActivatedRoute, private httpService: HttpService, private router: Router) {
+  constructor(private activatedRoute: ActivatedRoute, private httpService: HttpService, private router: Router, private toastr: ToastrService) {
     this.activatedRoute.queryParams.subscribe(params => {
       this.courseId = params['cursoId'];
 
@@ -113,6 +114,8 @@ export class GroupsComponent {
     this.httpService.delete('/groups/' + this.selectedGroup + '/delete')
     .subscribe(
       (_: any) => {
+        this.toastr.success('Se eliminó el grupo satisfactoriamente', 'Éxito');
+
         this.loadGroups();
         this.confirmDeleteModalCloseButton.nativeElement.click();
       }

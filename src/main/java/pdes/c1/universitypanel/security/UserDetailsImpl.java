@@ -1,6 +1,5 @@
 package pdes.c1.universitypanel.security;
 
-import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import pdes.c1.universitypanel.model.User;
@@ -8,10 +7,14 @@ import pdes.c1.universitypanel.model.User;
 import java.util.Collection;
 import java.util.Collections;
 
-@AllArgsConstructor
 public class UserDetailsImpl implements UserDetails {
-
-    private final User user;
+	private static final long serialVersionUID = 1L;
+	
+	private final User user;
+	
+	public UserDetailsImpl(User user) {
+		this.user = user;
+	}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

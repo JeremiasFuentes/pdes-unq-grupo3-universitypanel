@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
+import { enviroment } from 'src/enviroments/enviroment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +36,6 @@ export class HttpService {
       const headers = response.headers;
       
       const bearerToken = headers.get('Authorization')!;
-      console.log(bearerToken);
       const token = bearerToken?.replace('Bearer ', "");
       localStorage.setItem('token', token);
       

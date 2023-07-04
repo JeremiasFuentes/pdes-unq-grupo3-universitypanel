@@ -28,7 +28,14 @@ jobs:
           java-version: '17'
 
       - name: Build and test backend
-        run: mvn clean install -DskipTests
+        run: mvn clean install
+
+      - name: Run backend
+        run: |
+          mvn spring-boot:run &
+
+      - name: Wait for backend server to start
+        run: sleep 10
 
       - name: Build and test frontend
         run: |
@@ -36,3 +43,12 @@ jobs:
           cd src/main/webapp
           npm install
           npm run build
+          ng serve --open &
+
+      - name: Wait for frontend server to start
+        run: sleep 10
+
+      - name: Run Cypress tests
+          run: |
+            npm run cypress:install
+            npm run cypress:run

@@ -9,6 +9,9 @@ services:
     environment:
       - MARIADB_ROOT_PASSWORD=root
       - MYSQL_DATABASE=upanel
+      - MARIADB_USER=root
+    ports:
+      - 3306:3306
     volumes:
       - ./init.sql:/src/main/java/pdes/c1/universitypanel/utils/init.sql
 

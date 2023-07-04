@@ -1,8 +1,10 @@
 package pdes.c1.universitypanel.controller;
 
+import java.util.Collections;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import pdes.c1.universitypanel.exceptions.ResourceNotFoundException;
 import pdes.c1.universitypanel.model.Course;
 import pdes.c1.universitypanel.model.Professor;
 import pdes.c1.universitypanel.service.CourseService;
@@ -38,8 +41,12 @@ public class CourseController {
 	@CrossOrigin
 	@GetMapping("/{id}")
 	public ResponseEntity<Course> getCourseById(@PathVariable Long id) {
-		Course course = courseService.getCourseById(id);
-		return ResponseEntity.ok(course);
+		try {
+			Course course = courseService.getCourseById(id);
+			return ResponseEntity.ok(course);
+		} catch (ResourceNotFoundException ex) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 	@CrossOrigin

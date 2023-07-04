@@ -1,6 +1,8 @@
-describe('My First Test', () => {
+describe('Login test', () => {
   it('Visits the initial project page', () => {
     cy.visit('/')
-    cy.contains('app is running!')
+    cy.get('#email').type('admin@admin.com')
+    cy.get('#password').type('admin')
+    cy.get('button.btn.btn-primary').click()
   })
 })

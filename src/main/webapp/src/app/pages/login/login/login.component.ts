@@ -35,7 +35,7 @@ export class LoginComponent {
     this.httpService.login(body)
       .subscribe(response => {
         console.log(response)
-        this.router.navigate(['/']);
+        this.router.navigate(['/cursos']);
       })
 
   }

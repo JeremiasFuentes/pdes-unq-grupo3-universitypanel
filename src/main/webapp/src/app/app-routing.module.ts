@@ -14,8 +14,8 @@ const routes: Routes = [
   {path: 'repositorio', component: RepositoryInfoComponent, canActivate: [AuthGuard]},
   {path: 'grupos', component: GroupsComponent, canActivate: [AuthGuard]},
   {path: 'repositorios', component: RepositoriesComponent, canActivate: [AuthGuard]},
-  {path: 'login' , component: LoginComponent},
-  {path: '', redirectTo: '/cursos', pathMatch: 'full'}
+  {path: 'login' , component: LoginComponent}
+  
   //{path: '**', component: PageNotFoundComponent} TODO
 ];
 

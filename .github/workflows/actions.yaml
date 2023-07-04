@@ -27,8 +27,12 @@ jobs:
         with:
           java-version: '17'
 
-      - name: Build and test backend
+      - name: Build backend
         run: mvn clean install
+
+      - name: Run backend tests
+        run: |
+          mvn test
 
       - name: Run backend
         run: |
@@ -50,5 +54,7 @@ jobs:
 
       - name: Run Cypress tests
         run: |
+          cd src/main/webapp  # Navegar al directorio donde se encuentra el archivo package.json
+          npm install         # Instalar las dependencias
           npm run cypress:install
           npm run cypress:run

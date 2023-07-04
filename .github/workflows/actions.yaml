@@ -49,6 +49,6 @@ jobs:
         run: sleep 10
 
       - name: Run Cypress tests
-          run: |
-            npm run cypress:install
-            npm run cypress:run
+        run: |
+          npm run cypress:install
+          npm run cypress:run

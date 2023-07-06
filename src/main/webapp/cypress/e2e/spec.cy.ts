@@ -4,7 +4,7 @@ describe('Login test OK', () => {
     cy.get('#email').type('admin@admin.com')
     cy.get('#password').type('admin')
     cy.get('button.btn.btn-primary').click()
-
+    cy.wait(1000)
     cy.url().should('include', '/cursos')
   })
 })

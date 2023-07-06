@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-import { enviroment } from 'src/enviroments/enviroment.prod';
+import { enviroment } from 'src/enviroments/enviroment.dev';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService { 
-  private baseURL: string = "http://localhost:8080";
+  private baseURL: string = enviroment.baseURL;
  
   constructor(private http: HttpClient) {}
  

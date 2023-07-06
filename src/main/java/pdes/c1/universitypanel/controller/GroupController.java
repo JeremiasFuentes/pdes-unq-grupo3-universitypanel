@@ -1,5 +1,6 @@
 package pdes.c1.universitypanel.controller;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import pdes.c1.universitypanel.model.Group;
 import pdes.c1.universitypanel.model.dto.GroupDTO;
 import pdes.c1.universitypanel.service.GroupService;
 import pdes.c1.universitypanel.utils.ResponseBody;
@@ -60,5 +62,28 @@ public class GroupController {
 		return ResponseEntity.ok().build();
 	}
 
+	@PostMapping("/{groupId}/notes")
+	public ResponseEntity<Group> addNoteToGroup(@PathVariable Long groupId, @RequestBody String note) {
+		Group updatedGroup = groupService.addNoteToGroup(groupId, note);
+		return ResponseEntity.ok(updatedGroup);
+	}
+
+	@PutMapping("/{groupId}/notes/{noteIndex}")
+	public ResponseEntity<Group> updateNoteInGroup(@PathVariable Long groupId, @PathVariable int noteIndex, @RequestBody String updatedNote) {
+		Group updatedGroup = groupService.updateNoteInGroup(groupId, noteIndex, updatedNote);
+		return ResponseEntity.ok(updatedGroup);
+	}
+
+	@DeleteMapping("/{groupId}/notes/{noteIndex}")
+	public ResponseEntity<Group> deleteNoteFromGroup(@PathVariable Long groupId, @PathVariable int noteIndex) {
+		Group updatedGroup = groupService.deleteNoteFromGroup(groupId, noteIndex);
+		return ResponseEntity.ok(updatedGroup);
+	}
+
+	@GetMapping("/{groupId}/notes")
+	public ResponseEntity<List<String>> getGroupNotes(@PathVariable Long groupId) {
+		List<String> groupNotes = groupService.getGroupNotes(groupId);
+		return ResponseEntity.ok(groupNotes);
+	}
 
 }

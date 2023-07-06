@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { HttpService } from '../../services/http.service/http.service';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-groups',
@@ -8,16 +9,19 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./groups.component.scss']
 })
 export class GroupsComponent {
+  @ViewChild('confirmDeleteModalCloseButton') confirmDeleteModalCloseButton: any;
   courseId: number | undefined;
 
   students: any[] = [];
   groups: any[] = [];
   groupStudents: any[] = [];
+  groupNotes: any[] = [];
 
   selectedGroup: any;
   selectedStudent: any = null;
+  selectedNote: string = '';
 
-  constructor(private activatedRoute: ActivatedRoute, private httpService: HttpService, private router: Router) {
+  constructor(private activatedRoute: ActivatedRoute, private httpService: HttpService, private router: Router, private toastr: ToastrService) {
     this.activatedRoute.queryParams.subscribe(params => {
       this.courseId = params['cursoId'];
 
@@ -52,9 +56,19 @@ export class GroupsComponent {
 
     this.groupStudents = [];
     this.httpService.get('/groups/getAllStudents?groupId=' + groupId)
-        .subscribe(
-          (response: any) => this.groupStudents = response.data
-        );
+    .subscribe(
+      (response: any) => this.groupStudents = response.data
+    );
+  }
+
+  loadGroupNotes(groupId: number) {
+    this.selectedGroup = groupId;
+
+    this.groupNotes = [];
+    this.httpService.get('/groups/' + groupId + '/notes')
+    .subscribe(
+      (response: any) => this.groupNotes = response
+    );
   }
 
   setGroupIdSelected(groupId: number){
@@ -66,38 +80,54 @@ export class GroupsComponent {
       return;
 
     this.httpService.put('/groups/' + this.selectedGroup + '/addStudent?studentDni=' + this.selectedStudent, null)
-        .subscribe(
-          (_: any) => this.loadGroupStudents(this.selectedGroup)
-        );
+    .subscribe(
+      (_: any) => {
+        this.loadGroupStudents(this.selectedGroup);
+        this.loadGroups();
+      }
+    );
+  }
+
+  addNote() {
+    if(this.selectedNote == null)
+      return;
+
+    this.httpService.post('/groups/' + this.selectedGroup + '/notes', this.selectedNote)
+    .subscribe(
+      (response: any) => {
+        this.loadGroupNotes(this.selectedGroup);
+      }
+    );
   }
 
   goToRepositories(grupoId: number){
-        // Configurar los parámetros de navegación
-        const navigationExtras: NavigationExtras = {
-          queryParams: { grupoId: grupoId.toString(), cursoId: this.courseId?.toString()}
-        };
-    
-        // Redireccionar a la página de repositorios del grupo
-        this.router.navigate(['/repositorios'], navigationExtras);
+    // Configurar los parámetros de navegación
+    const navigationExtras: NavigationExtras = {
+      queryParams: { grupoId: grupoId.toString(), cursoId: this.courseId?.toString()}
+    };
+
+    // Redireccionar a la página de repositorios del grupo
+    this.router.navigate(['/repositorios'], navigationExtras);
   }
 
-  deleteGroup(){
+  deleteGroup() {
     this.httpService.delete('/groups/' + this.selectedGroup + '/delete')
     .subscribe(
-      (response: any) => this.loadGroups()
+      (_: any) => {
+        this.toastr.success('Se eliminó el grupo satisfactoriamente', 'Éxito');
+
+        this.loadGroups();
+        this.confirmDeleteModalCloseButton.nativeElement.click();
+      }
     )
   }
 
-  
-  closeModal() {
-    const modal = document.getElementById('confirmDeleteModal');
-    if (modal) {
-      modal.classList.remove('show');
-      modal.style.display = 'none';
-      const modalBackdrop = document.getElementsByClassName('modal-backdrop')[0];
-      if (modalBackdrop) {
-        modalBackdrop.parentNode?.removeChild(modalBackdrop);
+  deleteNote(indexNote: number) {
+    this.httpService.delete('/groups/' + this.selectedGroup + '/notes/' + indexNote)
+    .subscribe(
+      (_: any) => {
+        this.loadGroupNotes(this.selectedGroup);
       }
-    }
+    )
   }
 }

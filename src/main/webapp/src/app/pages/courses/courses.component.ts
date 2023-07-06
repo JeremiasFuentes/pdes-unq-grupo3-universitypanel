@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { HttpService } from '../../services/http.service/http.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-courses',
@@ -7,9 +8,13 @@ import { HttpService } from '../../services/http.service/http.service';
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent {
+  @ViewChild('confirmDeleteModalCloseButton') confirmDeleteModalCloseButton: any;
+
   courses: any[] = [];
 
-  constructor(private httpService: HttpService) {
+  selectedCourse: any;
+
+  constructor(private httpService: HttpService, private toastr: ToastrService) {
     this.loadCourses();
   }
 
@@ -20,12 +25,24 @@ export class CoursesComponent {
     );
   }
 
-  deleteCourse(event: any, courseId: any) {
-    this.httpService.delete('/courses/' + courseId)
-    .subscribe(
-      (_: any) => this.loadCourses()
-    );
+  setCourseIdSelected(courseId: number){
+    this.selectedCourse = courseId;
+  }
 
+  deleteCourseModal(event: any, courseId: number) {
+    this.selectedCourse = courseId;
     event.stopPropagation();
+  }
+
+  deleteCourse() {
+    this.httpService.delete('/courses/' + this.selectedCourse)
+    .subscribe(
+      (_: any) => {
+        this.toastr.success('Se eliminó el curso satisfactoriamente', 'Éxito');
+
+        this.loadCourses();
+        this.confirmDeleteModalCloseButton.nativeElement.click();
+      }
+    );
   }
 }

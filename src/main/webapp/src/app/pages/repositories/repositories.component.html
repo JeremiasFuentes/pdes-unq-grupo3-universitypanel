@@ -1,108 +1,145 @@
 <div class="row">
-    <div class="col-12 mt-3">
-      <div class="container-sm text-end">
-        <button
-          type="button"
-          class="btn border-black color-black"
-          data-bs-target="#newRepositoryModal"
-          data-bs-toggle="modal"
-          title="Agregar nuevo Repositorio"
-        >
-          A&ntilde;adir nuevo Repositorio
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12 mt-3">
-      <div class="mx-auto container-sm card text-center">
-        <div class="card-body">
-          <h5 class="card-title">Repositorios</h5>
-          <p class="card-text">
-            Informaci&oacute;n de los repositorios del grupo.
-          </p>
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">Owner</th>
-                <th scope="col">Token</th>
-                <th scope="col">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let repo of repositories">
-                <td [innerHTML]="repo.name"></td>
-                <td [innerHTML]="repo.owner"></td>
-                <td [innerHTML]="repo.token"></td>
-                <td>
-                  <button class="btn btn-success text-dark" [routerLink]="['/repositorio']"
-                  [queryParams]="{ user: repo.owner, repoName: repo.name, id: repo.id }">Ver</button>
-                  <button class="btn btn-danger text-dark"
+  <div class="col-12 mt-3">
+    <div class="mx-auto container-sm card text-center background-transparent">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-8">
+            <h5 class="card-title text-start">Repositorios</h5>
+            <p class="card-text text-start">
+              Informaci&oacute;n de los repositorios del grupo.
+            </p>
+          </div>
+          <div class="col-4 text-end">
+            <button
+              type="button"
+              class="btn border-black color-black border-0"
+              data-bs-target="#newRepositoryModal"
+              data-bs-toggle="modal"
+              title="Agregar nuevo Repositorio"
+            >
+              <i class="bi bi-plus-lg"></i> A&ntilde;adir nuevo
+            </button>
+          </div>
+        </div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Owner</th>
+              <th scope="col">Token</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let repo of repositories">
+              <td [innerHTML]="repo.name"></td>
+              <td [innerHTML]="repo.owner"></td>
+              <td [innerHTML]="repo.token"></td>
+              <td>
+                <button
+                  type="button"
+                  class="btn"
+                  [routerLink]="['/repositorio']"
+                  [queryParams]="{
+                    user: repo.owner,
+                    repoName: repo.name,
+                    id: repo.id
+                  }"
+                >
+                  <i class="bi bi-eye-fill"></i>
+                </button>
+                <button
+                  type="button"
+                  class="btn"
                   (click)="setRepoIdSelected(repo.id)"
                   data-bs-target="#confirmDeleteModal"
-                  data-bs-toggle="modal" >Eliminar</button>
-                  <button class="btn btn-warning text-dark" (click)="setRepoIdSelected(repo.id)"
+                  data-bs-toggle="modal"
+                >
+                  <i class="bi bi-trash-fill color-red"></i>
+                </button>
+                <button
+                  type="button"
+                  class="btn"
+                  (click)="setRepoIdSelected(repo.id)"
                   data-bs-target="#modifyRepoModal"
                   data-bs-toggle="modal"
-                 >Modificar</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+                >
+                  <i class="bi bi-pencil-fill"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-  <div id="newRepositoryModal" class="modal fade" aria-hidden="true" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalToggleLabel">
-            Nuevo Repositorio
-          </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <app-repositories-form></app-repositories-form>
-        </div>
+</div>
+<div
+  id="newRepositoryModal"
+  class="modal fade"
+  aria-hidden="true"
+  tabindex="-1"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel">
+          Nuevo Repositorio
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <app-repositories-form></app-repositories-form>
       </div>
     </div>
   </div>
+</div>
 
-  <div id="modifyRepoModal" class="modal fade" aria-hidden="true" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalToggleLabel">
-            Modificar Repositorio
-          </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <app-repositories-form [repoId]="repoIdSelected" #repositoriesForm></app-repositories-form>
-        </div>
+<div id="modifyRepoModal" class="modal fade" aria-hidden="true" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel">
+          Modificar Repositorio
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <app-repositories-form
+          [repoId]="repoIdSelected"
+          #repositoriesForm
+        ></app-repositories-form>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
-  aria-hidden="true">
+<div
+  class="modal fade"
+  id="confirmDeleteModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="confirmDeleteModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h4>
-          <button
+        <h4 class="modal-title" id="confirmDeleteModalLabel">
+          Confirmar Eliminación
+        </h4>
+        <button
+          #confirmDeleteModalClosebutton
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
@@ -113,8 +150,21 @@
         <p>¿Estás seguro de que quieres eliminar este repositorio?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" (click)="deleteRepo(); closeModal()">Eliminar</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="deleteRepo()"
+        >
+          Eliminar
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          Cancelar
+        </button>
       </div>
     </div>
   </div>

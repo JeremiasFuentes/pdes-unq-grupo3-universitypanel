@@ -57,7 +57,6 @@ import { HttpService } from '../../services/http.service/http.service';
             this.getRepoBranches(),
             this.getRepoTags(),
             this.getRepoPulls();
-          
           }
           );
     }

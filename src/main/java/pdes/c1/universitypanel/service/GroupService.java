@@ -41,6 +41,9 @@ public class GroupService {
 	}
 
 	public void addStudentToGroup(Long groupId, Integer studentDni) {
+		if(this.studentRepository.findStudentByGroupIdAndUserId(groupId, studentDni).isPresent())
+			throw new RuntimeException("El estudiante ya se encuentra en el grupo");
+			
 		Group group = this.getGroupById(groupId);
 		Student existingStudent = this.studentService.getStudentById(studentDni);
 
@@ -70,5 +73,40 @@ public class GroupService {
 	public void deleteGroup(Long groupId) {
 		Group group = this.getGroupById(groupId);
 		this.groupRepository.delete(group);
+	}
+
+	public Group addNoteToGroup(Long groupId, String note) {
+		Group group = groupRepository.findById(groupId).orElseThrow(() -> new ResourceNotFoundException("Group", "id", groupId));
+		group.getNotes().add(note);
+		return groupRepository.save(group);
+	}
+
+	public Group updateNoteInGroup(Long groupId, int noteIndex, String updatedNote) {
+		Group group = groupRepository.findById(groupId).orElseThrow(() -> new ResourceNotFoundException("Group", "id", groupId));
+		List<String> notes = group.getNotes();
+		if (noteIndex >= 0 && noteIndex < notes.size()) {
+			notes.set(noteIndex, updatedNote);
+		} else {
+			throw new IllegalArgumentException("Invalid index");
+		}
+		return groupRepository.save(group);
+	}
+
+
+	public Group deleteNoteFromGroup(Long groupId, int noteIndex) {
+		Group group = groupRepository.findById(groupId).orElseThrow(() -> new ResourceNotFoundException("Group", "id", groupId));
+		List<String> notes = group.getNotes();
+		if (noteIndex >= 0 && noteIndex < notes.size()) {
+			notes.remove(noteIndex);
+		} else {
+			throw new IllegalArgumentException("Invalid index");
+		}
+		return groupRepository.save(group);
+	}
+
+
+	public List<String> getGroupNotes(Long groupId) {
+		Group group = groupRepository.findById(groupId).orElseThrow(() -> new ResourceNotFoundException("Group", "id", groupId));
+		return group.getNotes();
 	}
 }

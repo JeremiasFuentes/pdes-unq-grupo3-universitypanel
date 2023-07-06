@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
+import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.lang.ArchRule;
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition;
 import pdes.c1.universitypanel.security.UserDetailServiceImpl;
@@ -27,7 +28,7 @@ public class ArchitectureTest {
 
     @Test
     public void applicationControllersShouldResideInApplicationPackage() {
-        JavaClasses importedClasses = new ClassFileImporter().importPackages("pdes.c1.universitypanel");
+        JavaClasses importedClasses = new ClassFileImporter().withImportOption(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS).importPackages("pdes.c1.universitypanel");
         
 	    ArchRule rule = ArchRuleDefinition.classes().that().areAnnotatedWith(RestController.class)
 	            .should().resideInAPackage("pdes.c1.universitypanel.controller");

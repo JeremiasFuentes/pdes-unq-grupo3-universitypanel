@@ -17,6 +17,10 @@ Elegimos como tecnologias el backend con Java usando Spring porque ya las hemos 
 
 Para levantar la aplicacion, teniendo docker corriendo, se puede ejecutar el comando 'docker-compose up --build' en la carpeta raiz del proyecto para que cree las imagenes y deje disponible la aplicacion en el puerto 8083
 
+## Variables de Entorno
+
+Para la configuracion de la conexion a bases de datos editar el archivo 'spring.env' en la carpeta raiz
+
 ## Diagrama UML
 
 ![image](https://user-images.githubusercontent.com/39131303/231901049-115ab5ca-74b0-43d1-afe5-70b896d660dc.png)
